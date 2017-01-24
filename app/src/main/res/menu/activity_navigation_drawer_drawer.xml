@@ -1,0 +1,31 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_agenda"
+            android:icon="@mipmap/ic_launcher"
+            android:title="Agenda" />
+        <item
+            android:id="@+id/nav_comptes_rendues"
+            android:icon="@mipmap/ic_launcher"
+            android:title="Comptes Rendues" />
+
+        <item
+            android:id="@+id/nav_Medicaments"
+            android:icon="@mipmap/ic_launcher"
+            android:title="Medicaments" />
+
+        <item
+            android:id="@+id/nav_practiciens"
+            android:icon="@mipmap/ic_launcher"
+            android:title="Practiciens" />
+
+        <item
+            android:id="@+id/nav_visiteurs"
+            android:icon="@mipmap/ic_launcher"
+            android:title="Visiteurs" />
+
+    </group>
+
+
+</menu>

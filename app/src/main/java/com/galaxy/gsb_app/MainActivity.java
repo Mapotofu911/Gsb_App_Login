@@ -21,6 +21,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+
 public class MainActivity extends AppCompatActivity {
 
     // CONNECTION_TIMEOUT and READ_TIMEOUT are in milliseconds
@@ -74,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
             try {
 
                 // Enter URL address where your php file resides
-                url = new URL("http://192.168.43.76/apigsb/login.php");
+                url = new URL("http://192.168.0.13/apigsb/login.php");
 
             } catch (MalformedURLException e) {
                 // TODO Auto-generated catch block
@@ -162,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
                 use sharedPreferences of Android. and logout button to clear sharedPreferences.
                  */
 
-                Intent intent = new Intent(MainActivity.this,SuccessActivity.class);
+                Intent intent = new Intent(MainActivity.this,NavigationDrawer.class);
                 startActivity(intent);
                 MainActivity.this.finish();
 
