@@ -10,8 +10,9 @@ package com.galaxy.gsb_app;
         import android.view.View;
         import android.view.ViewGroup;
         import android.widget.ArrayAdapter;
+        import android.widget.AutoCompleteTextView;
         import android.widget.Button;
-        import android.widget.Spinner;
+        import android.widget.TabHost;
         import android.widget.TextView;
 
         import org.json.JSONArray;
@@ -24,13 +25,13 @@ package com.galaxy.gsb_app;
 
 public class PracticiensFragment extends Fragment{
 
-    private Spinner spinPracticien;
     // array list for spinner adapter
     private ArrayList<Practiciens> practicienList;
+    private AutoCompleteTextView autoCompleteTextPract;
 
     // API urls
     // Url to get all Practiciens
-    private String url = "http://192.168.43.76/apigsb/getPracticiens.php";
+    private String url = "http://10.0.2.2/apigsb/getPracticiens.php";
 
     @Nullable
     @Override
@@ -38,44 +39,66 @@ public class PracticiensFragment extends Fragment{
         View view = inflater.inflate(R.layout.fragment_practiciens, container, false);
 
         practicienList = new ArrayList<>();
-        spinPracticien = (Spinner) view.findViewById(R.id.spinPracticien);
 
-        Button btn = (Button)view.findViewById(R.id.btnPract);
         final TextView PractNom = (TextView) view.findViewById(R.id.textViewMedNom);
         final TextView PractPrenom = (TextView)view.findViewById(R.id.textViewPrenom);
-        final TextView PractAdresse = (TextView)view.findViewById(R.id.textViewAdresse);
+        final TextView PractAdresse = (TextView)view.findViewById(R.id.textViewVisiteurAdresse);
         final TextView PractCP = (TextView)view.findViewById(R.id.textViewCP);
         final TextView PractType = (TextView)view.findViewById(R.id.textViewType);
         final TextView PractCoeff = (TextView)view.findViewById(R.id.textViewCoeff);
         final TextView PractTel = (TextView)view.findViewById(R.id.textViewTel);
+        final Button buttonPractOk = (Button)view.findViewById(R.id.buttonPractOk);
+        TabHost mTabHost = (TabHost)view.findViewById(R.id.TabHostPract);
+        mTabHost.setup();
 
-        btn.setOnClickListener(new View.OnClickListener() {
+        TabHost.TabSpec mSpec = mTabHost.newTabSpec("First Tab");
+        mSpec.setContent(R.id.tab1);
+        mSpec.setIndicator("Voir");
+        mTabHost.addTab(mSpec);
+        //Lets add the second Tab
+        mSpec = mTabHost.newTabSpec("Second Tab");
+        mSpec.setContent(R.id.tab2);
+        mSpec.setIndicator("Ajouter");
+        mTabHost.addTab(mSpec);
+
+
+        autoCompleteTextPract = (AutoCompleteTextView) view.findViewById(R.id.autoCompleteTextPract);
+        autoCompleteTextPract.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
-                String Name = spinPracticien.getSelectedItem().toString();
-                Practiciens p = new Practiciens();
-
-                for (int i = 0; i < practicienList.size(); i++)
-                {
-                    if (practicienList.get(i).getNom() == Name)
-                    {
-                        p = practicienList.get(i);
-                    }
-                }
-
-                PractNom.setText(p.getNom());
-                PractPrenom.setText(p.getPrenom());
-                PractAdresse.setText(p.getAdresse());
-                PractCP.setText(p.getCodePostal());
-                PractType.setText(p.getType());
-                PractCoeff.setText(p.getCoeffNotoriete());
-                PractTel.setText(p.getTel());
-
+            public void onClick(final View arg0) {
+                autoCompleteTextPract.showDropDown();
             }
-        }
-        );
+        });
 
+        buttonPractOk.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View view)
+             {
+                 String Name = autoCompleteTextPract.getText().toString();
+
+                 System.out.println(Name);
+
+                 Practiciens p = new Practiciens();
+
+                 for (int i = 0; i < practicienList.size(); i++)
+                 {
+                     if (practicienList.get(i).getNom().toUpperCase().equals(Name.toUpperCase()))
+                     {
+                         p = practicienList.get(i);
+                     }
+                 }
+
+                 PractNom.setText(p.getNom());
+                 PractPrenom.setText(p.getPrenom());
+                 PractAdresse.setText(p.getAdresse());
+                 PractCP.setText(p.getCodePostal());
+                 PractType.setText(p.getType());
+                 PractCoeff.setText(p.getCoeffNotoriete());
+                 PractTel.setText(p.getTel());
+
+             }
+         }
+        );
 
 
         //returning our layout file
@@ -114,25 +137,16 @@ public class PracticiensFragment extends Fragment{
 
                             JSONObject PractObj = Practiciens.getJSONObject(i);
 
-                            int id = PractObj.getInt("id");
-                            String Nom = PractObj.getString("Nom");
-                            String Prenom = PractObj.getString("Prenom");
-                            String Adresse = PractObj.getString("Adresse");
-                            String CodePostal = PractObj.getString("CodePostal");
-                            String CoeffNotoriete = PractObj.getString("CoeffNotoriete");
-                            String Type = PractObj.getString("Type");
-                            String Tel = PractObj.getString("Telephone");
-
                             Practiciens p = new Practiciens();
 
-                            p.setId(id);
-                            p.setNom(Nom);
-                            p.setPrenom(Prenom);
-                            p.setAdresse(Adresse);
-                            p.setCodePostal(CodePostal);
-                            p.setCoeffNotoriete(CoeffNotoriete);
-                            p.setType(Type);
-                            p.setTel(Tel);
+                            p.setId(PractObj.getInt("id"));
+                            p.setNom(PractObj.getString("Nom"));
+                            p.setPrenom(PractObj.getString("Prenom"));
+                            p.setAdresse(PractObj.getString("Adresse"));
+                            p.setCodePostal(PractObj.getString("CodePostal"));
+                            p.setCoeffNotoriete(PractObj.getString("CoeffNotoriete"));
+                            p.setType(PractObj.getString("Type"));
+                            p.setTel(PractObj.getString("Telephone"));
 
                             practicienList.add(p);
                         }
@@ -152,7 +166,7 @@ public class PracticiensFragment extends Fragment{
         @Override
         protected void onPostExecute(Void result) {
 
-            populateSpinner();
+            populate();
         }
 
     }
@@ -160,7 +174,7 @@ public class PracticiensFragment extends Fragment{
     /**
      * Adding spinner data
      * */
-    private void populateSpinner() {
+    private void populate() {
         List<String> lables = new ArrayList<>();
 
         for (int i = 0; i < practicienList.size(); i++) {
@@ -175,7 +189,7 @@ public class PracticiensFragment extends Fragment{
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         // attaching data adapter to spinner
-        spinPracticien.setAdapter(spinnerAdapter);
+        autoCompleteTextPract.setAdapter(spinnerAdapter);
     }
 
 }

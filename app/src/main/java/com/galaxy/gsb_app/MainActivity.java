@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
             try {
 
                 // Enter URL address where your php file resides
-                url = new URL("http://192.168.43.76/apigsb/login.php");
+                url = new URL("http://10.0.2.2/apigsb/login.php");
 
             } catch (MalformedURLException e) {
                 // TODO Auto-generated catch block

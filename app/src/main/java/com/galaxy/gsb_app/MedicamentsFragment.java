@@ -5,8 +5,6 @@ package com.galaxy.gsb_app;
  */
 
 
-import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,10 +13,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TabHost;
 import android.widget.TextView;
 
@@ -32,12 +30,13 @@ import java.util.List;
 
 public class MedicamentsFragment extends Fragment {
 
-    private Spinner spinMedicament;
+    //private Spinner spinMedicament;
+    private AutoCompleteTextView autoCompleteTextViewMed;
     // array list for spinner adapter
     private ArrayList<Medicaments> medicamentsList;
     // API urls
     // Url to get all Practiciens
-    private String url = "http://192.168.43.76/apigsb/getMedicaments.php";
+    private String url = "http://10.0.2.2/apigsb/getMedicaments.php";
 
     @Nullable
     @Override
@@ -47,10 +46,10 @@ public class MedicamentsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_medicaments, container, false);
 
         medicamentsList = new ArrayList<>();
-        spinMedicament = (Spinner) view.findViewById(R.id.spinnerMedicament);
+        //spinMedicament = (Spinner) view.findViewById(R.id.spinnerMedicament);
+        autoCompleteTextViewMed = (AutoCompleteTextView)view.findViewById(R.id.autoCompleteTextViewMed);
+        final Button buttonMedOk = (Button)view.findViewById(R.id.buttonMedOk);
 
-
-        Button btn = (Button)view.findViewById(R.id.button2);
         final TextView textViewMedNom = (TextView) view.findViewById(R.id.textViewMedNom);
         final TextView textViewMedDepotLegale = (TextView) view.findViewById(R.id.textViewMedDepotLegale);
         final TextView textViewMedPrix = (TextView) view.findViewById(R.id.textViewMedPrix);
@@ -81,31 +80,75 @@ public class MedicamentsFragment extends Fragment {
         mTabHost.addTab(mSpec);
 
 
-        btn.setOnClickListener(new View.OnClickListener() {
-                                   @Override
-                                   public void onClick(View view)
-                                   {
-                                       String Name = spinMedicament.getSelectedItem().toString();
-                                       Medicaments m = new Medicaments();
+        /*spinMedicament.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
 
-                                       for (int i = 0; i < medicamentsList.size(); i++)
-                                       {
-                                           if (medicamentsList.get(i).getNomMed() == Name)
-                                           {
-                                               m = medicamentsList.get(i);
-                                           }
-                                       }
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+                String Name = spinMedicament.getSelectedItem().toString();
+                Medicaments m = new Medicaments();
 
-                                       textViewMedNom.setText(m.getNomMed());
-                                       textViewMedDepotLegale.setText(m.getDepotLegale());
-                                       textViewMedPrix.setText(m.getPrix());
-                                       textViewMedNomCommerciale.setText(m.getNomCommerciale());
-                                       textViewMedFamille.setText(m.getFamille());
-                                       textViewCompo.setText(m.getComposition());
-                                       textViewIndication.setText(m.getContreIndications());
-                                       textViewEffets.setText(m.getEffets());
-                                   }
-                               }
+                for (int i = 0; i < medicamentsList.size(); i++)
+                {
+                    if (medicamentsList.get(i).getNomMed() == Name)
+                    {
+                        m = medicamentsList.get(i);
+                    }
+                }
+
+                textViewMedNom.setText(m.getNomMed());
+                textViewMedDepotLegale.setText(m.getDepotLegale());
+                textViewMedPrix.setText(m.getPrix());
+                textViewMedNomCommerciale.setText(m.getNomCommerciale());
+                textViewMedFamille.setText(m.getFamille());
+                textViewCompo.setText(m.getComposition());
+                textViewIndication.setText(m.getContreIndications());
+                textViewEffets.setText(m.getEffets());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+
+
+        });*/
+
+        autoCompleteTextViewMed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View arg0) {
+                autoCompleteTextViewMed.showDropDown();
+            }
+        });
+
+        buttonMedOk.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View view)
+             {
+                 String Name = autoCompleteTextViewMed.getText().toString();
+
+                 System.out.println(Name);
+
+                 Medicaments m = new Medicaments();
+
+                 for (int i = 0; i < medicamentsList.size(); i++)
+                 {
+                     if (medicamentsList.get(i).getNomMed().toUpperCase().equals(Name.toUpperCase()))
+                     {
+                         m = medicamentsList.get(i);
+                     }
+                 }
+
+                 textViewMedNom.setText(m.getNomMed());
+                 textViewMedDepotLegale.setText(m.getDepotLegale());
+                 textViewMedPrix.setText(m.getPrix());
+                 textViewMedNomCommerciale.setText(m.getNomCommerciale());
+                 textViewMedFamille.setText(m.getFamille());
+                 textViewCompo.setText(m.getComposition());
+                 textViewIndication.setText(m.getContreIndications());
+                 textViewEffets.setText(m.getEffets());
+
+             }
+         }
         );
 
         new MedicamentsFragment.GetMedicaments().execute();
@@ -142,27 +185,17 @@ public class MedicamentsFragment extends Fragment {
 
                             JSONObject MedObj = Medicaments.getJSONObject(i);
 
-                            int id = MedObj.getInt("id");
-                            String NomMed = MedObj.getString("NomMed");
-                            String DepotLegale = MedObj.getString("DepotLegale");
-                            String NomCommerciale = MedObj.getString("NomCommerciale");
-                            String Famille = MedObj.getString("Famille");
-                            String Prix = MedObj.getString("Prix");
-                            String Composition = MedObj.getString("Composition");
-                            String Effets = MedObj.getString("Effets");
-                            String ContreIndications = MedObj.getString("ContreIndications");
-
                             Medicaments m = new Medicaments();
 
-                            m.setId(id);
-                            m.setComposition(Composition);
-                            m.setContreIndications(ContreIndications);
-                            m.setDepotLegale(DepotLegale);
-                            m.setNomMed(NomMed);
-                            m.setNomCommerciale(NomCommerciale);
-                            m.setFamille(Famille);
-                            m.setPrix(Prix);
-                            m.setEffets(Effets);
+                            m.setId(MedObj.getInt("id"));
+                            m.setComposition(MedObj.getString("Composition"));
+                            m.setContreIndications(MedObj.getString("ContreIndications"));
+                            m.setDepotLegale(MedObj.getString("DepotLegale"));
+                            m.setNomMed(MedObj.getString("NomMed"));
+                            m.setNomCommerciale(MedObj.getString("NomCommerciale"));
+                            m.setFamille(MedObj.getString("Famille"));
+                            m.setPrix(MedObj.getString("Prix"));
+                            m.setEffets(MedObj.getString("Effets"));
 
                             medicamentsList.add(m);
                         }
@@ -184,7 +217,6 @@ public class MedicamentsFragment extends Fragment {
 
             populateSpinner();
         }
-
     }
 
     /**
@@ -205,6 +237,6 @@ public class MedicamentsFragment extends Fragment {
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         // attaching data adapter to spinner
-        spinMedicament.setAdapter(spinnerAdapter);
+        autoCompleteTextViewMed.setAdapter(spinnerAdapter);
     }
 }

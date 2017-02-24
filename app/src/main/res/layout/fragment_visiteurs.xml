@@ -4,12 +4,218 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:text="Prénom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Visiteurs"
-        android:id="@+id/textView"
+        android:id="@+id/textView18"
+        android:textSize="18sp"
+        android:layout_below="@+id/textViewVisteurNom"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10sp"
+        android:textStyle="normal|bold" />
+
+    <TextView
+        android:text="Laboratoire"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView19"
+        android:textSize="18sp"
+        android:layout_below="@+id/textView18"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10sp"
+        android:textStyle="normal|bold" />
+
+    <TextView
+        android:text="Mail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView20"
+        android:textSize="18sp"
+        android:layout_below="@+id/textView19"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10sp"
+        android:textStyle="normal|bold" />
+
+    <TextView
+        android:text="Code Postal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView23"
+        android:textSize="18sp"
+        android:layout_below="@+id/textView22"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="15sp"
+        android:textStyle="normal|bold" />
+
+    <TextView
+        android:text="Telephone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView21"
+        android:textSize="18sp"
+        android:layout_marginTop="10sp"
+        android:layout_below="@+id/textView20"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textStyle="normal|bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewVisteurNom"
+        android:textSize="18sp"
+        android:textStyle="normal|bold"
+        android:layout_alignBaseline="@+id/textView27"
+        android:layout_alignBottom="@+id/textView27"
+        android:layout_toRightOf="@+id/textView23"
+        android:layout_toEndOf="@+id/textView23"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewVisteurPrenom"
+        android:textSize="18sp"
+        android:textStyle="normal|bold"
+        android:layout_above="@+id/textView19"
+        android:layout_alignLeft="@+id/textViewVisteurNom"
+        android:layout_alignStart="@+id/textViewVisteurNom" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewVisteurLaboratoire"
+        android:textSize="18sp"
+        android:textStyle="normal|bold"
+        android:layout_alignBaseline="@+id/textView19"
+        android:layout_alignBottom="@+id/textView19"
+        android:layout_alignLeft="@+id/textViewVisteurPrenom"
+        android:layout_alignStart="@+id/textViewVisteurPrenom" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewVisteurMail"
+        android:textSize="18sp"
+        android:textStyle="normal|bold"
+        android:layout_above="@+id/textView21"
+        android:layout_alignLeft="@+id/textViewVisteurLaboratoire"
+        android:layout_alignStart="@+id/textViewVisteurLaboratoire" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewVisteurTelephone"
+        android:textSize="18sp"
+        android:textStyle="normal|bold"
+        android:layout_alignBaseline="@+id/textView21"
+        android:layout_alignBottom="@+id/textView21"
+        android:layout_alignLeft="@+id/textViewVisteurMail"
+        android:layout_alignStart="@+id/textViewVisteurMail" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewVisteurCodepostal"
+        android:textSize="18sp"
+        android:textStyle="normal|bold"
+        android:layout_alignBaseline="@+id/textView23"
+        android:layout_alignBottom="@+id/textView23"
+        android:layout_alignLeft="@+id/textViewVisiteurSecteur"
+        android:layout_alignStart="@+id/textViewVisiteurSecteur" />
+
+    <TextView
+        android:text="Nom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView27"
+        android:textSize="18sp"
+        android:textStyle="normal|bold"
+        android:layout_below="@+id/buttonOkVisiteurs"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="14dp" />
+
+    <AutoCompleteTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/autoCompleteTextViewVisiteur"
+        android:layout_below="@+id/spinnerRegion"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/buttonOkVisiteurs"
+        android:layout_toStartOf="@+id/buttonOkVisiteurs"
+        android:textAlignment="center"
+        android:hint="Visiteurs"/>
+
+    <Button
+        android:text="Ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonOkVisiteurs"
+        android:layout_alignBaseline="@+id/autoCompleteTextViewVisiteur"
+        android:layout_alignBottom="@+id/autoCompleteTextViewVisiteur"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="24sp"
+        android:id="@+id/spinnerRegion"
+        android:hint="Region"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewVisiteurSecteur"
+        android:textSize="18sp"
+        android:textStyle="normal|bold"
+        android:layout_above="@+id/textView23"
+        android:layout_alignLeft="@+id/textViewVisteurTelephone"
+        android:layout_alignStart="@+id/textViewVisteurTelephone" />
+
+    <TextView
+        android:text="Secteur"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView22"
+        android:layout_below="@+id/textView21"
+        android:layout_marginTop="15dp"
+        android:textSize="18sp"
+        android:textStyle="normal|bold"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewVisiteurAdresse"
+        android:textSize="18sp"
+        android:textStyle="normal|bold"
+        android:layout_alignBaseline="@+id/textView16"
+        android:layout_alignBottom="@+id/textView16"
+        android:layout_alignLeft="@+id/textViewVisteurCodepostal"
+        android:layout_alignStart="@+id/textViewVisteurCodepostal" />
+
+    <TextView
+        android:text="Adresse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView16"
+        android:textSize="18sp"
+        android:layout_marginTop="15sp"
+        android:textStyle="normal|bold"
+        android:layout_below="@+id/textView23"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

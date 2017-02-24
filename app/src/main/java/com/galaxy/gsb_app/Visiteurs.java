@@ -7,28 +7,30 @@ package com.galaxy.gsb_app;
 public class Visiteurs {
 
     private int id;
-    private String Departement;
+    private String Region;
     private String Nom;
     private String Prenom;
     private String Adresse;
     private String CodePostal;
     private String Secteur;
     private String Laboratoire;
+    private String Mail;
+    private String Tel;
 
-    public Visiteurs()
-    {
-
-    }
-
-    public Visiteurs(int id, String departement, String nom, String prenom, String adresse, String codePostal, String secteur, String laboratoire) {
+    public Visiteurs(int id, String region, String nom, String prenom, String adresse, String codePostal, String secteur, String laboratoire) {
         this.id = id;
-        Departement = departement;
+        Region = region;
         Nom = nom;
         Prenom = prenom;
         Adresse = adresse;
         CodePostal = codePostal;
         Secteur = secteur;
         Laboratoire = laboratoire;
+    }
+
+    public Visiteurs()
+    {
+
     }
 
     public int getId() {
@@ -39,12 +41,12 @@ public class Visiteurs {
         this.id = id;
     }
 
-    public String getDepartement() {
-        return Departement;
+    public String getRegion() {
+        return Region;
     }
 
-    public void setDepartement(String departement) {
-        Departement = departement;
+    public void setRegion(String region) {
+        Region = region;
     }
 
     public String getNom() {
@@ -93,5 +95,21 @@ public class Visiteurs {
 
     public void setLaboratoire(String laboratoire) {
         Laboratoire = laboratoire;
+    }
+
+    public String getMail() {
+        return Mail;
+    }
+
+    public void setMail(String mail) {
+        Mail = mail;
+    }
+
+    public String getTel() {
+        return Tel;
+    }
+
+    public void setTel(String tel) {
+        Tel = tel;
     }
 }
