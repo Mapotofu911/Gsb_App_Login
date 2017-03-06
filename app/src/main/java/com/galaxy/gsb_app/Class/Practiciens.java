@@ -1,4 +1,4 @@
-package com.galaxy.gsb_app;
+package com.galaxy.gsb_app.Class;
 
 /**
  * Created by Mapotofu on 27/01/2017.

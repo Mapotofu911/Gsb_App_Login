@@ -1,4 +1,4 @@
-package com.galaxy.gsb_app;
+package com.galaxy.gsb_app.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.Toast;
+
+import com.galaxy.gsb_app.R;
 
 
 public class AgendaFragment extends Fragment {

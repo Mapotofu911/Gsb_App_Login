@@ -1,4 +1,4 @@
-package com.galaxy.gsb_app;
+package com.galaxy.gsb_app.Fragments;
 
         import android.os.Bundle;
         import android.support.annotation.Nullable;
@@ -6,6 +6,8 @@ package com.galaxy.gsb_app;
         import android.view.LayoutInflater;
         import android.view.View;
         import android.view.ViewGroup;
+
+        import com.galaxy.gsb_app.R;
 
 
 public class ComptesRenduesFragment extends Fragment {

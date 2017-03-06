@@ -1,8 +1,7 @@
-package com.galaxy.gsb_app;
+package com.galaxy.gsb_app.Activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +9,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.galaxy.gsb_app.R;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -70,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
             pdLoading.show();
 
         }
+
         @Override
         protected String doInBackground(String... params) {
             try {

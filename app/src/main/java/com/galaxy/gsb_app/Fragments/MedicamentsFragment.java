@@ -1,4 +1,4 @@
-package com.galaxy.gsb_app;
+package com.galaxy.gsb_app.Fragments;
 
 /**
  * Created by Mapotofu on 24/01/2017.
@@ -13,12 +13,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.TabHost;
 import android.widget.TextView;
+
+import com.galaxy.gsb_app.Handler.HttpHandler;
+import com.galaxy.gsb_app.Class.Medicaments;
+import com.galaxy.gsb_app.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;

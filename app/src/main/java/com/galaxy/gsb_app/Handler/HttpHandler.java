@@ -1,4 +1,4 @@
-package com.galaxy.gsb_app;
+package com.galaxy.gsb_app.Handler;
 
 /**
  * Created by Mapotofu on 30/01/2017.

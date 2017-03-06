@@ -1,4 +1,4 @@
-package com.galaxy.gsb_app;
+package com.galaxy.gsb_app.Fragments;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -14,6 +14,11 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.galaxy.gsb_app.Handler.HttpHandler;
+import com.galaxy.gsb_app.R;
+import com.galaxy.gsb_app.Class.Region;
+import com.galaxy.gsb_app.Class.Visiteurs;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -394,7 +399,4 @@ public class VisiteursFragment extends Fragment {
         // attaching data adapter to spinner
         autoCompleteTextViewVisiteur.setAdapter(spinnerAdapter);
     }
-
-
-
 }

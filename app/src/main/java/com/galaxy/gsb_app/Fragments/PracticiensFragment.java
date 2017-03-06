@@ -1,36 +1,42 @@
-package com.galaxy.gsb_app;
+package com.galaxy.gsb_app.Fragments;
 
 
-        import android.os.AsyncTask;
-        import android.os.Bundle;
-        import android.support.annotation.Nullable;
-        import android.support.v4.app.Fragment;
-        import android.util.Log;
-        import android.view.LayoutInflater;
-        import android.view.View;
-        import android.view.ViewGroup;
-        import android.widget.ArrayAdapter;
-        import android.widget.AutoCompleteTextView;
-        import android.widget.Button;
-        import android.widget.TabHost;
-        import android.widget.TextView;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.TabHost;
+import android.widget.TextView;
 
-        import org.json.JSONArray;
-        import org.json.JSONException;
-        import org.json.JSONObject;
+import com.galaxy.gsb_app.Handler.HttpHandler;
+import com.galaxy.gsb_app.Class.Practiciens;
+import com.galaxy.gsb_app.R;
 
-        import java.util.ArrayList;
-        import java.util.List;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class PracticiensFragment extends Fragment{
 
     // array list for spinner adapter
+
     private ArrayList<Practiciens> practicienList;
     private AutoCompleteTextView autoCompleteTextPract;
 
     // API urls
     // Url to get all Practiciens
+
     private String url = "http://10.0.2.2/apigsb/getPracticiens.php";
 
     @Nullable
@@ -114,7 +120,6 @@ public class PracticiensFragment extends Fragment{
         super.onViewCreated(view, savedInstanceState);
         //you can set the title for your toolbar here for different fragments different titles
         getActivity().setTitle("Practiciens");
-
     }
 
     private class GetPracticiens extends AsyncTask<Void, Void, Void> {
