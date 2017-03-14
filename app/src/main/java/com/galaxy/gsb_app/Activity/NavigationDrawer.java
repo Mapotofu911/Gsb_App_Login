@@ -13,9 +13,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.galaxy.gsb_app.Fragments.AgendaFragment;
-import com.galaxy.gsb_app.Fragments.ComptesRenduesFragment;
+import com.galaxy.gsb_app.Fragments.CompteRendusFragment;
 import com.galaxy.gsb_app.Fragments.MedicamentsFragment;
 import com.galaxy.gsb_app.Fragments.PracticiensFragment;
+import com.galaxy.gsb_app.Fragments.TicketsDIncidentsFragment;
+import com.galaxy.gsb_app.Fragments.VehiculeFragment;
 import com.galaxy.gsb_app.Fragments.VisiteursFragment;
 import com.galaxy.gsb_app.R;
 
@@ -95,7 +97,14 @@ public class NavigationDrawer extends AppCompatActivity
                 fragment = new AgendaFragment();
                 break;
             case R.id.nav_comptes_rendues:
-                fragment = new ComptesRenduesFragment();
+                CompteRendusFragment myFrag = new CompteRendusFragment();
+                String s = getIntent().getStringExtra("visiteurId");
+                Bundle bundle = new Bundle();
+                bundle.putString("visiteurId", s);
+                myFrag.setArguments(bundle);
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.content_frame, myFrag);
+                ft.commit();
                 break;
             case R.id.nav_Medicaments:
                 fragment = new MedicamentsFragment();
@@ -107,10 +116,10 @@ public class NavigationDrawer extends AppCompatActivity
                 fragment = new VisiteursFragment();
                 break;
             case R.id.nav_tickets_incidents:
-                fragment = new VisiteursFragment();
+                fragment = new TicketsDIncidentsFragment();
                 break;
             case R.id.nav_vehicule:
-                fragment = new VisiteursFragment();
+                fragment = new VehiculeFragment();
                 break;
         }
 

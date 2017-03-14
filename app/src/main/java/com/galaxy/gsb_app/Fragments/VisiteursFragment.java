@@ -41,8 +41,6 @@ import java.util.List;
 
 public class VisiteursFragment extends Fragment {
 
-    public static final int CONNECTION_TIMEOUT=10000;
-    public static final int READ_TIMEOUT=15000;
     private ArrayList<Visiteurs> visiteursList;
     private ArrayList<Region> regionList;
     private Spinner spinnerRegion;
@@ -152,7 +150,6 @@ public class VisiteursFragment extends Fragment {
         return view;
     }
 
-
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -161,8 +158,6 @@ public class VisiteursFragment extends Fragment {
     }
 
     private class GetRegion extends AsyncTask<Void, Void, Void> {
-
-
 
         @Override
         protected Void doInBackground(Void... arg0) {
@@ -227,7 +222,7 @@ public class VisiteursFragment extends Fragment {
         spinnerRegion.setAdapter(spinnerAdapter);
     }
 
-    public class SendRequest extends AsyncTask<String, Void, String> {
+    private class SendRequest extends AsyncTask<String, Void, String> {
 
         HttpURLConnection conn;
 

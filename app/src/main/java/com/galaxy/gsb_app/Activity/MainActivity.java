@@ -6,11 +6,18 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.galaxy.gsb_app.Class.Visiteurs;
+import com.galaxy.gsb_app.Fragments.CompteRendusFragment;
 import com.galaxy.gsb_app.R;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -32,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     public static final int READ_TIMEOUT=15000;
     private EditText etEmail;
     private EditText etPassword;
+    private JSONArray MyVisiteur;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,17 +83,22 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... params) {
-            try {
 
+            try
+            {
                 // Enter URL address where your php file resides
                 url = new URL("http://10.0.2.2/apigsb/login.php");
 
-            } catch (MalformedURLException e) {
+            }
+            catch (MalformedURLException e)
+            {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
                 return "exception";
             }
-            try {
+
+            try
+            {
                 // Setup HttpURLConnection class to send and receive data from php and mysql
                 conn = (HttpURLConnection)url.openConnection();
                 conn.setReadTimeout(READ_TIMEOUT);
@@ -112,7 +125,9 @@ public class MainActivity extends AppCompatActivity {
                 os.close();
                 conn.connect();
 
-            } catch (IOException e1) {
+            }
+            catch (IOException e1)
+            {
                 // TODO Auto-generated catch block
                 e1.printStackTrace();
                 return "exception";
@@ -136,17 +151,46 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     // Pass data to onPostExecute method
-                    return(result.toString());
+                    Log.e("Response: ", "> " + result);
 
-                }else{
+                    if (result != null) {
+
+                        try {
+
+                            JSONObject jsonObj = new JSONObject(String.valueOf(result));
+
+
+                            String resultLog = jsonObj.getString("result");
+                            MyVisiteur = jsonObj.getJSONArray("Visiteur");
+
+
+                            return(resultLog.toString());
+                        }
+                        catch (JSONException e)
+                        {
+                            e.printStackTrace();
+                            return "exception";
+                        }
+                    }
+                    else
+                    {
+                        return "exception";
+                    }
+                }
+                else
+                {
 
                     return("unsuccessful");
                 }
 
-            } catch (IOException e) {
+            }
+            catch (IOException e)
+            {
                 e.printStackTrace();
                 return "exception";
-            } finally {
+            }
+            finally
+            {
                 conn.disconnect();
             }
         }
@@ -165,6 +209,11 @@ public class MainActivity extends AppCompatActivity {
                  */
 
                 Intent intent = new Intent(MainActivity.this,NavigationDrawer.class);
+                try {
+                    intent.putExtra("visiteurId", String.valueOf(MyVisiteur.getJSONObject(0).getInt("id")));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 startActivity(intent);
                 MainActivity.this.finish();
 
@@ -181,4 +230,26 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+    //Pass user data to fragment
+    /*public Visiteurs getUser() throws JSONException {
+
+        Visiteurs User = new Visiteurs();
+
+        User.setAdresse(MyVisiteur.getJSONObject(0).getString("Adresse"));
+        User.setNom(MyVisiteur.getJSONObject(0).getString("Nom"));
+        User.setId(MyVisiteur.getJSONObject(0).getInt("id"));
+        User.setPrenom(MyVisiteur.getJSONObject(0).getString("Prenom"));
+        User.setCodePostal(MyVisiteur.getJSONObject(0).getString("CodePostal"));
+        User.setLaboratoire(MyVisiteur.getJSONObject(0).getString("Laboratoire"));
+        User.setRegion(MyVisiteur.getJSONObject(0).getString("Region_id"));
+        User.setMail(MyVisiteur.getJSONObject(0).getString("Mail"));
+        User.setTel(MyVisiteur.getJSONObject(0).getString("Tel"));
+        User.setSecteur(MyVisiteur.getJSONObject(0).getString("Secteur"));
+
+        Log.e("Response: ", "> " + User);
+
+        return User;
+    }*/
+
 }

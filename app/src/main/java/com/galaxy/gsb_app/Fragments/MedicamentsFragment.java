@@ -180,8 +180,11 @@ public class MedicamentsFragment extends Fragment {
 
             if (jsonStr != null) {
                 try {
+
                     JSONObject jsonObj = new JSONObject(jsonStr);
+
                     if (jsonObj != null) {
+
                         JSONArray Medicaments = jsonObj.getJSONArray("Medicaments");
 
                         for (int i = 0; i < Medicaments.length(); i++) {
