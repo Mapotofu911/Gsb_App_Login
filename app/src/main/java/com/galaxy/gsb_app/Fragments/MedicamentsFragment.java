@@ -82,40 +82,6 @@ public class MedicamentsFragment extends Fragment {
         mSpec.setIndicator("Effets");
         mTabHost.addTab(mSpec);
 
-
-        /*spinMedicament.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-
-            public void onItemSelected(AdapterView<?> parent, View view,
-                                       int position, long id) {
-                String Name = spinMedicament.getSelectedItem().toString();
-                Medicaments m = new Medicaments();
-
-                for (int i = 0; i < medicamentsList.size(); i++)
-                {
-                    if (medicamentsList.get(i).getNomMed() == Name)
-                    {
-                        m = medicamentsList.get(i);
-                    }
-                }
-
-                textViewMedNom.setText(m.getNomMed());
-                textViewMedDepotLegale.setText(m.getDepotLegale());
-                textViewMedPrix.setText(m.getPrix());
-                textViewMedNomCommerciale.setText(m.getNomCommerciale());
-                textViewMedFamille.setText(m.getFamille());
-                textViewCompo.setText(m.getComposition());
-                textViewIndication.setText(m.getContreIndications());
-                textViewEffets.setText(m.getEffets());
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-
-
-        });*/
-
         autoCompleteTextViewMed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View arg0) {

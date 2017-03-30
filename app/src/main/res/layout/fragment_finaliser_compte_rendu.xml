@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textView31"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10sp"
+            android:text="Bilan"
+            android:textAlignment="center"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            tools:text="Bilan" />
+
+        <EditText
+            android:layout_marginTop="10sp"
+            android:id="@+id/editTextBilan"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:ems="10"
+            android:inputType="textMultiLine"
+            android:layout_below="@+id/textView31"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:padding="5sp"
+            android:background="@drawable/bordertextview"/>
+
+        <TextView
+            android:id="@+id/textView34"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/editTextBilan"
+            android:layout_marginTop="10sp"
+            android:text="Motif :"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <CheckBox
+            android:id="@+id/checkBoxDocumentation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Documentation"
+            android:textSize="18sp"
+            android:layout_below="@+id/checkBoxRemplacement"
+            android:layout_alignParentStart="true" />
+
+        <CheckBox
+            android:id="@+id/checkBoxSaisie"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/checkBoxDocumentation"
+            android:text="Saisie Définitive"
+            android:textSize="18sp" />
+
+        <CheckBox
+            android:id="@+id/checkBoxRemplacement"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/textView34"
+            android:layout_marginTop="10sp"
+            android:text="Remplacement"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/buttonSoumettre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/checkBoxSaisie"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="19dp"
+            android:elevation="0dp"
+            android:text="Soumettre" />
+
+        <EditText
+            android:id="@+id/editTextMotif"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editTextBilan"
+            android:layout_toEndOf="@+id/textView34"
+            android:layout_toRightOf="@+id/textView34"
+            android:ems="10"
+            android:hint="Motif"
+            android:inputType="textPersonName"
+            android:textAlignment="center"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+
+</LinearLayout>

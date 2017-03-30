@@ -2,10 +2,10 @@ package com.galaxy.gsb_app.Fragments;
 
 
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,7 +49,7 @@ import java.util.Objects;
  * Created by Mapotofu on 15/03/2017.
  */
 
-public class ModifierCompteRendusFragment extends android.support.v4.app.Fragment{
+public class ModifierCompteRendusFragment extends Fragment{
 
     private ArrayList<Practiciens> practicienListM;
     private AutoCompleteTextView autoCompleteTextView;
@@ -64,8 +64,6 @@ public class ModifierCompteRendusFragment extends android.support.v4.app.Fragmen
     private SimpleAdapter adapterMedOffert;
     CompteRenduSingleton crs;
 
-
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -77,7 +75,6 @@ public class ModifierCompteRendusFragment extends android.support.v4.app.Fragmen
         listMedPresente = new ArrayList<>();
         listMedOffert = new ArrayList<Map<String, String>>();
         crs = CompteRenduSingleton.getInstance();
-
 
         final EditText EditTextNb = (EditText)view.findViewById(R.id.EditTextNb);
 
@@ -184,7 +181,7 @@ public class ModifierCompteRendusFragment extends android.support.v4.app.Fragmen
                 ArrayList<Medicaments> PresitMedOff = new ArrayList<Medicaments>();
 
                 Integer id = getArguments().getInt("cptid");
-                CompteRenduSingleton.getInstance().setId(id);
+                crs.setId(id);
 
                 for (int i = 0; i < listMedPresente.size(); i++)
                 {
@@ -197,7 +194,7 @@ public class ModifierCompteRendusFragment extends android.support.v4.app.Fragmen
                         }
                     }
                 }
-                CompteRenduSingleton.getInstance().setMedicamentsPresente_rapport(PresitMedPres);
+                crs.setMedicamentsPresente_rapport(PresitMedPres);
 
                 for (int i = 0; i < listMedOffert.size(); i++)
                 {
@@ -211,15 +208,17 @@ public class ModifierCompteRendusFragment extends android.support.v4.app.Fragmen
 
                     }
                 }
-                CompteRenduSingleton.getInstance().setMedicamentsOfferts_rapport(PresitMedOff);
+                crs.setMedicamentsOfferts_rapport(PresitMedOff);
 
-                //Intent intent = new Intent(getContext(),ActivityB.class);
-                //this.startActivity(intent);
-
+                FinaliserCompteRendu nextFrag = new FinaliserCompteRendu();
+                Bundle args2 = new Bundle();
+                Bundle args = getArguments();
+                args2.putInt("cptid", args.getInt("cptid"));
+                Log.e("Args2", String.valueOf(args.getInt("cptid")));
+                nextFrag.setArguments(args2);
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, nextFrag).commit();
             }
         });
-
-
 
 
         return view;
@@ -229,7 +228,7 @@ public class ModifierCompteRendusFragment extends android.support.v4.app.Fragmen
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //you can set the title for your toolbar here for different fragments different titles
-        getActivity().setTitle("Modifier Compte Rendus");
+        getActivity().setTitle("Compte - Rendus");
     }
 
     private class GetPracticiens extends AsyncTask<Void, Void, Void> {
@@ -388,6 +387,7 @@ public class ModifierCompteRendusFragment extends android.support.v4.app.Fragmen
     }
 
     private class GetCompteRenduInfo extends AsyncTask<String, Void, String> {
+
         HttpURLConnection conn;
 
         protected void onPreExecute() {

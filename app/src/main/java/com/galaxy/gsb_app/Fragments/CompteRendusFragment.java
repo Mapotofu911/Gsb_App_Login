@@ -1,12 +1,9 @@
 package com.galaxy.gsb_app.Fragments;
 
-        import android.content.Intent;
         import android.os.AsyncTask;
         import android.os.Bundle;
-        import android.provider.CalendarContract;
         import android.support.annotation.Nullable;
         import android.support.v4.app.Fragment;
-        import android.support.v4.app.FragmentManager;
         import android.support.v4.app.FragmentTransaction;
         import android.util.Log;
         import android.view.LayoutInflater;
@@ -15,7 +12,6 @@ package com.galaxy.gsb_app.Fragments;
         import android.widget.AdapterView;
         import android.widget.Button;
         import android.widget.ListView;
-        import android.widget.TabHost;
         import android.widget.TextView;
 
         import com.galaxy.gsb_app.Class.CompteRendus;
@@ -39,9 +35,6 @@ package com.galaxy.gsb_app.Fragments;
         import java.util.ArrayList;
         import java.util.Iterator;
         import java.util.List;
-
-        import static android.R.attr.fragment;
-        import static android.R.attr.value;
 
 
 public class CompteRendusFragment extends Fragment {
@@ -72,7 +65,10 @@ public class CompteRendusFragment extends Fragment {
             public void onItemClick(AdapterView<?> arg0, View arg1,int position, long arg3)
             {
                 //listComptesRendues.getItemAtPosition(position);
-                String selected = ((TextView)view.findViewById(R.id.NumCompteRendue)).getText().toString();
+                TextView textNumCompteRendue = ((TextView)arg1.findViewById(R.id.NumCompteRendue));
+
+                String selected = textNumCompteRendue.getText().toString();
+
                 Log.e("selected", String.valueOf(selected));
 
                 Integer cptId = null;
@@ -91,15 +87,14 @@ public class CompteRendusFragment extends Fragment {
                 Log.e("cptid", String.valueOf(cptId));
 
                 myFrag.setArguments(args);
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.content_frame, myFrag);
-                transaction.commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, myFrag).commit();
             }
         });
 
         final Button buttonAjouter = (Button)view.findViewById(R.id.buttonAjouter);
         buttonAjouter.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+
                 ModifierCompteRendusFragment myFrag = new ModifierCompteRendusFragment();
                 Bundle args = new Bundle();
                 int cptId = -1;
@@ -107,9 +102,7 @@ public class CompteRendusFragment extends Fragment {
                 Log.e("cptid", String.valueOf(cptId));
 
                 myFrag.setArguments(args);
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.content_frame, myFrag);
-                transaction.commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, myFrag).commit();
             }
         });
 
@@ -122,7 +115,7 @@ public class CompteRendusFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //you can set the title for your toolbar here for different fragments different titles
-        getActivity().setTitle("Compte Rendus");
+        getActivity().setTitle("Comptes - Rendus");
     }
 
     private void afficherListeCompteRendus(){

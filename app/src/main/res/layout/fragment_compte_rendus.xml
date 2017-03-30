@@ -27,14 +27,14 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="300dp"
             android:orientation="vertical">
 
             <ListView
                 android:id="@+id/listComptesRendues"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:divider="@android:drawable/divider_horizontal_dark" />
+                android:layout_height="300sp"
+                android:background="@drawable/bordertextview" />
         </LinearLayout>
     </ScrollView>
 
