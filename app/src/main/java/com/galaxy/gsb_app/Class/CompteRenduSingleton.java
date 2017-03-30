@@ -1,17 +1,13 @@
 package com.galaxy.gsb_app.Class;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 /**
- * Created by Mapotofu on 07/03/2017.
+ * Created by Mapotofu on 22/03/2017.
  */
 
-public class CompteRendus {
+public final class CompteRenduSingleton {
 
     private int id;
     private String practicien_nom;
@@ -25,51 +21,25 @@ public class CompteRendus {
     private String bilan;
     private int visiteur_rapport_id;
 
-    public CompteRendus(int id, String practicien_nom, List<Medicaments> medicamentsPresente_rapport, String date_rapport, List<Medicaments> medicamentsOfferts_rapport, String motif, Boolean remplacant, Boolean documentation, Boolean saisieDefinitive, String bilan, int visiteur_rapport_id) {
+    private static volatile CompteRenduSingleton instance  = new CompteRenduSingleton();
 
-        this.id = id;
-        this.practicien_nom = practicien_nom;
-        this.medicamentsPresente_rapport = medicamentsPresente_rapport;
-        this.date_rapport = date_rapport;
-        this.medicamentsOfferts_rapport = medicamentsOfferts_rapport;
-        this.motif = motif;
-        this.remplacant = remplacant;
-        this.documentation = documentation;
-        SaisieDefinitive = saisieDefinitive;
-        this.bilan = bilan;
-        this.visiteur_rapport_id = visiteur_rapport_id;
-        Date date = new Date();
-        DateFormat df;
-        df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.FRANCE);
-        this.date_rapport = df.format(date);
+    private CompteRenduSingleton() {
+        super();
     }
 
-    public String getPracticien_nom() {
-        return practicien_nom;
-    }
+    public final static CompteRenduSingleton getInstance(){
 
-    public void setPracticien_nom(String practicien_nom) {
-        this.practicien_nom = practicien_nom;
-    }
-
-    public int getVisiteur_rapport_id() {
-        return visiteur_rapport_id;
-    }
-
-    public void setVisiteur_rapport_id(int visiteur_rapport_id) {
-        this.visiteur_rapport_id = visiteur_rapport_id;
-    }
-
-    public String getBilan() {
-        return bilan;
-    }
-
-    public void setBilan(String bilan) {
-        this.bilan = bilan;
-    }
-
-    public CompteRendus() {
-
+        if (CompteRenduSingleton.instance == null) {
+            // Le mot-clé synchronized sur ce bloc empêche toute instanciation
+            // multiple même par différents "threads".
+            // Il est TRES important.
+            synchronized(CompteRenduSingleton.class) {
+                if (CompteRenduSingleton.instance == null) {
+                    CompteRenduSingleton.instance = new CompteRenduSingleton();
+                }
+            }
+        }
+        return CompteRenduSingleton.instance;
     }
 
     public int getId() {
@@ -78,6 +48,14 @@ public class CompteRendus {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getPracticien_nom() {
+        return practicien_nom;
+    }
+
+    public void setPracticien_nom(String practicien_nom) {
+        this.practicien_nom = practicien_nom;
     }
 
     public List<Medicaments> getMedicamentsPresente_rapport() {
@@ -89,7 +67,7 @@ public class CompteRendus {
     }
 
     public String getDate_rapport() {
-        return String.valueOf(date_rapport);
+        return date_rapport;
     }
 
     public void setDate_rapport(String date_rapport) {
@@ -134,5 +112,21 @@ public class CompteRendus {
 
     public void setSaisieDefinitive(Boolean saisieDefinitive) {
         SaisieDefinitive = saisieDefinitive;
+    }
+
+    public String getBilan() {
+        return bilan;
+    }
+
+    public void setBilan(String bilan) {
+        this.bilan = bilan;
+    }
+
+    public int getVisiteur_rapport_id() {
+        return visiteur_rapport_id;
+    }
+
+    public void setVisiteur_rapport_id(int visiteur_rapport_id) {
+        this.visiteur_rapport_id = visiteur_rapport_id;
     }
 }

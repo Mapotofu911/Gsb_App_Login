@@ -8,31 +8,81 @@
 
     <ImageView
         android:id="@+id/Status"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        tools:background="#AAA"
-        />
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        tools:background="#AAA" />
 
     <TextView
         android:id="@+id/NumCompteRendue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@android:color/black"
-        android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@+id/Status"
-        android:layout_alignTop="@+id/Status"
         android:textStyle="bold"
         tools:text="N° Compte Rendu"
-        />
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/textView28"
+        android:layout_toEndOf="@+id/textView28" />
 
     <TextView
         android:id="@+id/DateCompteRendue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@android:color/black"
-        android:layout_alignLeft="@+id/NumCompteRendue"
-        android:layout_below="@+id/NumCompteRendue"
+        android:textStyle="bold"
         tools:text="Date de création"
-        />
+        android:layout_below="@+id/NumCompteRendue"
+        android:layout_alignLeft="@+id/NumCompteRendue"
+        android:layout_alignStart="@+id/NumCompteRendue"
+        android:layout_marginTop="8sp" />
+
+    <TextView
+        android:id="@+id/textViewNomPract"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/DateCompteRendue"
+        android:layout_alignLeft="@+id/DateCompteRendue"
+        android:layout_alignStart="@+id/DateCompteRendue"
+        android:text="Practicien Nom"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        android:layout_marginTop="8sp" />
+
+    <TextView
+        android:id="@+id/textView28"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="8sp"
+        android:layout_toEndOf="@+id/Status"
+        android:layout_toRightOf="@+id/Status"
+        android:text="N° Compte Rendu"
+        android:textStyle="bold"
+        tools:text="N° Compte Rendu" />
+
+    <TextView
+        android:id="@+id/textView29"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textViewNomPract"
+        android:layout_marginLeft="8sp"
+        android:layout_toEndOf="@+id/Status"
+        android:layout_toRightOf="@+id/Status"
+        android:text="Date de création"
+        android:textStyle="bold"
+        tools:text="Date de création" />
+
+    <TextView
+        android:id="@+id/textView30"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textViewNomPract"
+        android:layout_marginLeft="8sp"
+        android:layout_toEndOf="@+id/Status"
+        android:layout_toRightOf="@+id/Status"
+        android:text="Practicien Nom"
+        android:textStyle="bold"
+        tools:text="Practicien Nom" />
 
 </RelativeLayout>

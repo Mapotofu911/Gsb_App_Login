@@ -34,6 +34,7 @@ public class CompteRendusAdapter extends ArrayAdapter<CompteRendus> {
             viewHolder.NumCompteRendue = (TextView) convertView.findViewById(R.id.NumCompteRendue);
             viewHolder.DateCompteRendue = (TextView) convertView.findViewById(R.id.DateCompteRendue);
             viewHolder.Status = (ImageView) convertView.findViewById(R.id.Status);
+            viewHolder.textViewNomPract = (TextView)convertView.findViewById(R.id.textViewNomPract);
             convertView.setTag(viewHolder);
         }
 
@@ -43,7 +44,7 @@ public class CompteRendusAdapter extends ArrayAdapter<CompteRendus> {
         if (compteRendus != null) {
             viewHolder.NumCompteRendue.setText(String.valueOf(compteRendus.getId()));
             viewHolder.DateCompteRendue.setText(String.valueOf(compteRendus.getDate_rapport()));
-
+            viewHolder.textViewNomPract.setText(String.valueOf(compteRendus.getPracticien_nom()));
             if (compteRendus.getSaisieDefinitive())
             {
                 viewHolder.Status.setImageResource(R.drawable.ic_check_black_24dp);
@@ -52,7 +53,6 @@ public class CompteRendusAdapter extends ArrayAdapter<CompteRendus> {
             {
                 viewHolder.Status.setImageResource(R.drawable.ic_clear_black_24dp);
             }
-
         }
 
         return convertView;
@@ -63,6 +63,38 @@ public class CompteRendusAdapter extends ArrayAdapter<CompteRendus> {
         public TextView NumCompteRendue;
         public TextView DateCompteRendue;
         public ImageView Status;
+        public TextView textViewNomPract;
 
+        public TextView getNumCompteRendue() {
+            return NumCompteRendue;
+        }
+
+        public void setNumCompteRendue(TextView numCompteRendue) {
+            NumCompteRendue = numCompteRendue;
+        }
+
+        public TextView getDateCompteRendue() {
+            return DateCompteRendue;
+        }
+
+        public void setDateCompteRendue(TextView dateCompteRendue) {
+            DateCompteRendue = dateCompteRendue;
+        }
+
+        public ImageView getStatus() {
+            return Status;
+        }
+
+        public void setStatus(ImageView status) {
+            Status = status;
+        }
+
+        public TextView getTextViewNomPract() {
+            return textViewNomPract;
+        }
+
+        public void setTextViewNomPract(TextView textViewNomPract) {
+            this.textViewNomPract = textViewNomPract;
+        }
     }
 }

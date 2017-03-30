@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/buttonPres"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/autoCompleteTextViewMed"
+            android:layout_alignEnd="@+id/autoCompleteTextView"
+            android:layout_alignRight="@+id/autoCompleteTextView"
+            android:text="Ajouter"
+            android:textSize="18dp" />
+
+        <AutoCompleteTextView
+            android:id="@+id/autoCompleteTextViewMed"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView17"
+            android:layout_alignStart="@+id/textView17"
+            android:layout_below="@+id/textView10"
+            android:layout_marginTop="10dp"
+            android:hint="Medicament"
+            android:textAlignment="center" />
+
+    <ScrollView
+        android:id="@+id/ScrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_below="@+id/autoCompleteTextViewMed">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="120dp">
+
+                <ListView
+                    android:id="@+id/listViewPres"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true">
+                </ListView>
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+        <AutoCompleteTextView
+            android:id="@+id/autoCompleteTextView"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="15dp"
+            android:hint="Practicien"
+            android:textAlignment="center" />
+
+    <AutoCompleteTextView
+        android:id="@+id/autoCompleteTextViewMed2"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/autoCompleteTextViewMed"
+        android:layout_alignStart="@+id/autoCompleteTextViewMed"
+        android:layout_below="@+id/textView24"
+        android:layout_marginTop="10dp"
+        android:hint="Medicament"
+        android:textAlignment="center" />
+
+        <Button
+            android:id="@+id/buttonOffer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/autoCompleteTextViewMed2"
+            android:layout_alignLeft="@+id/buttonPres"
+            android:layout_alignStart="@+id/buttonPres"
+            android:text="Ajouter"
+            android:textSize="18dp" />
+
+    <Button
+        android:id="@+id/buttonNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ScrollView3"
+        android:layout_marginLeft="30dp"
+        android:layout_marginStart="30dp"
+        android:layout_toEndOf="@+id/autoCompleteTextViewMed2"
+        android:layout_toRightOf="@+id/autoCompleteTextViewMed2"
+        android:text="Suivant" />
+
+        <TextView
+            android:id="@+id/textView24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView10"
+            android:layout_alignStart="@+id/textView10"
+            android:layout_below="@+id/ScrollView2"
+            android:layout_marginTop="13dp"
+            android:text="Echantillion(s) Offert(s) :"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/autoCompleteTextView"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="11dp"
+            android:text="Echantillion(s) présenté(s) :"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/autoCompleteTextView"
+            android:layout_alignBottom="@+id/autoCompleteTextView"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:text="Practicien :"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <ScrollView
+            android:id="@+id/ScrollView3"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_below="@+id/autoCompleteTextViewMed2">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp">
+
+                    <ListView
+                        android:id="@+id/listViewOffert"
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp">
+                    </ListView>
+                </RelativeLayout>
+            </LinearLayout>
+        </ScrollView>
+
+    <EditText
+        android:id="@+id/EditTextNb"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/autoCompleteTextViewMed2"
+        android:layout_alignBottom="@+id/autoCompleteTextViewMed2"
+        android:layout_toEndOf="@+id/autoCompleteTextViewMed2"
+        android:layout_toRightOf="@+id/autoCompleteTextViewMed2"
+        android:ems="10"
+        android:hint="Nb"
+        android:inputType="number"
+        android:textAlignment="center" />
+
+    <Button
+        android:id="@+id/buttonReset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/autoCompleteTextViewMed2"
+        android:layout_alignStart="@+id/autoCompleteTextViewMed2"
+        android:layout_below="@+id/ScrollView3"
+        android:layout_marginLeft="53dp"
+        android:layout_marginStart="53dp"
+        android:text="Reset" />
+
+</RelativeLayout>

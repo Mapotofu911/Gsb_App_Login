@@ -1,15 +1,22 @@
 package com.galaxy.gsb_app.Fragments;
 
+        import android.content.Intent;
         import android.os.AsyncTask;
         import android.os.Bundle;
+        import android.provider.CalendarContract;
         import android.support.annotation.Nullable;
         import android.support.v4.app.Fragment;
+        import android.support.v4.app.FragmentManager;
+        import android.support.v4.app.FragmentTransaction;
         import android.util.Log;
         import android.view.LayoutInflater;
         import android.view.View;
         import android.view.ViewGroup;
+        import android.widget.AdapterView;
+        import android.widget.Button;
         import android.widget.ListView;
         import android.widget.TabHost;
+        import android.widget.TextView;
 
         import com.galaxy.gsb_app.Class.CompteRendus;
         import com.galaxy.gsb_app.Class.CompteRendusAdapter;
@@ -33,6 +40,9 @@ package com.galaxy.gsb_app.Fragments;
         import java.util.Iterator;
         import java.util.List;
 
+        import static android.R.attr.fragment;
+        import static android.R.attr.value;
+
 
 public class CompteRendusFragment extends Fragment {
 
@@ -52,27 +62,56 @@ public class CompteRendusFragment extends Fragment {
         id = getArguments().getString("visiteurId");
         Log.e("paramsid", id);
 
-        View view = inflater.inflate(R.layout.fragment_compte_rendus, container, false);
-
-        TabHost TabHostComptesRendues = (TabHost)view.findViewById(R.id.TabHostComptesRendues);
-        TabHostComptesRendues.setup();
-
-        TabHost.TabSpec mSpec = TabHostComptesRendues.newTabSpec("First Tab");
-        mSpec.setContent(R.id.Voir);
-        mSpec.setIndicator("Voir");
-        TabHostComptesRendues.addTab(mSpec);
-        //Lets add the second Tab
-        mSpec = TabHostComptesRendues.newTabSpec("Second Tab");
-        mSpec.setContent(R.id.Ajouter);
-        mSpec.setIndicator("Ajouter");
-        TabHostComptesRendues.addTab(mSpec);
-        //Lets add the third Tab
-        mSpec = TabHostComptesRendues.newTabSpec("Third Tab");
-        mSpec.setContent(R.id.Modifier);
-        mSpec.setIndicator("Modifier");
-        TabHostComptesRendues.addTab(mSpec);
+        final View view = inflater.inflate(R.layout.fragment_compte_rendus, container, false);
 
         listComptesRendues = (ListView)view.findViewById(R.id.listComptesRendues);
+
+        listComptesRendues.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1,int position, long arg3)
+            {
+                //listComptesRendues.getItemAtPosition(position);
+                String selected = ((TextView)view.findViewById(R.id.NumCompteRendue)).getText().toString();
+                Log.e("selected", String.valueOf(selected));
+
+                Integer cptId = null;
+
+                for (int x = 0; x < compteRendusList.size(); x++)
+                {
+                    if (compteRendusList.get(x).getId() == Integer.valueOf(selected))
+                    {
+                        cptId = compteRendusList.get(x).getId();
+                    }
+                }
+                ModifierCompteRendusFragment myFrag = new ModifierCompteRendusFragment();
+                Bundle args = new Bundle();
+
+                args.putInt("cptid", cptId);
+                Log.e("cptid", String.valueOf(cptId));
+
+                myFrag.setArguments(args);
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.content_frame, myFrag);
+                transaction.commit();
+            }
+        });
+
+        final Button buttonAjouter = (Button)view.findViewById(R.id.buttonAjouter);
+        buttonAjouter.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                ModifierCompteRendusFragment myFrag = new ModifierCompteRendusFragment();
+                Bundle args = new Bundle();
+                int cptId = -1;
+                args.putInt("cptid", cptId);
+                Log.e("cptid", String.valueOf(cptId));
+
+                myFrag.setArguments(args);
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.content_frame, myFrag);
+                transaction.commit();
+            }
+        });
 
         new CompteRendusFragment.GetComptesRendus().execute();
 
@@ -220,7 +259,7 @@ public class CompteRendusFragment extends Fragment {
                                 c.setRemplacant(true);
                             }
 
-                            c.setPracticien_rapport_id(cptrendusObj.getInt("practiciens_id"));
+                            c.setPracticien_nom(cptrendusObj.getString("NomPract"));
                             c.setVisiteur_rapport_id(cptrendusObj.getInt("visiteurs_id"));
 
                             compteRendusList.add(c);
