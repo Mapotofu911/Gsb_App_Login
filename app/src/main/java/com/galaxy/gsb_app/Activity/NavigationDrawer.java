@@ -1,5 +1,6 @@
 package com.galaxy.gsb_app.Activity;
 
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -9,6 +10,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -90,11 +92,13 @@ public class NavigationDrawer extends AppCompatActivity
 
         //creating fragment object
         Fragment fragment = null;
+        String tag ="";
 
         //initializing the fragment object which is selected
         switch (itemId) {
             case R.id.nav_agenda:
                 fragment = new AgendaFragment();
+                tag = "AgendaFragment";
                 break;
             case R.id.nav_comptes_rendues:
                 CompteRendusFragment myFrag = new CompteRendusFragment();
@@ -103,31 +107,35 @@ public class NavigationDrawer extends AppCompatActivity
                 bundle.putString("visiteurId", s);
                 myFrag.setArguments(bundle);
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.content_frame, myFrag);
-                ft.commit();
+                tag = "CompteRendusFragment";
+                ft.replace(R.id.content_frame, myFrag).addToBackStack("tag").commit();
                 break;
             case R.id.nav_Medicaments:
                 fragment = new MedicamentsFragment();
+                tag = "MedicamentsFragment";
                 break;
             case R.id.nav_practiciens:
                 fragment = new PracticiensFragment();
+                tag = "PracticiensFragment";
                 break;
             case R.id.nav_visiteurs:
                 fragment = new VisiteursFragment();
+                tag = "VisiteursFragment";
                 break;
             case R.id.nav_tickets_incidents:
                 fragment = new TicketsDIncidentsFragment();
+                tag = "TicketsDIncidentsFragment";
                 break;
             case R.id.nav_vehicule:
                 fragment = new VehiculeFragment();
+                tag = "VehiculeFragment";
                 break;
         }
 
         //replacing the fragment
         if (fragment != null) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.content_frame, fragment);
-            ft.commit();
+            ft.replace(R.id.content_frame, fragment).addToBackStack(tag).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

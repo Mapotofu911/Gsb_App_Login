@@ -15,6 +15,7 @@ public class CompteRendus {
 
     private int id;
     private String practicien_nom;
+    private int pract_id;
     private List<Medicaments> medicamentsPresente_rapport;
     private String date_rapport;
     private List<Medicaments> medicamentsOfferts_rapport;
@@ -25,10 +26,11 @@ public class CompteRendus {
     private String bilan;
     private int visiteur_rapport_id;
 
-    public CompteRendus(int id, String practicien_nom, List<Medicaments> medicamentsPresente_rapport, String date_rapport, List<Medicaments> medicamentsOfferts_rapport, String motif, Boolean remplacant, Boolean documentation, Boolean saisieDefinitive, String bilan, int visiteur_rapport_id) {
+    public CompteRendus(int id, String practicien_nom, int pract_id, List<Medicaments> medicamentsPresente_rapport, String date_rapport, List<Medicaments> medicamentsOfferts_rapport, String motif, Boolean remplacant, Boolean documentation, Boolean saisieDefinitive, String bilan, int visiteur_rapport_id) {
 
         this.id = id;
         this.practicien_nom = practicien_nom;
+        this.pract_id = pract_id;
         this.medicamentsPresente_rapport = medicamentsPresente_rapport;
         this.date_rapport = date_rapport;
         this.medicamentsOfferts_rapport = medicamentsOfferts_rapport;
@@ -42,6 +44,14 @@ public class CompteRendus {
         DateFormat df;
         df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.FRANCE);
         this.date_rapport = df.format(date);
+    }
+
+    public int getPract_id() {
+        return pract_id;
+    }
+
+    public void setPract_id(int pract_id) {
+        this.pract_id = pract_id;
     }
 
     public String getPracticien_nom() {

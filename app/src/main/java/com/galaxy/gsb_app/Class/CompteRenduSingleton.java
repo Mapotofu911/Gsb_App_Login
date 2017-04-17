@@ -11,6 +11,7 @@ public final class CompteRenduSingleton {
 
     private int id;
     private String practicien_nom;
+    private int precticien_id;
     private List<Medicaments> medicamentsPresente_rapport;
     private String date_rapport;
     private List<Medicaments> medicamentsOfferts_rapport;
@@ -40,6 +41,14 @@ public final class CompteRenduSingleton {
             }
         }
         return CompteRenduSingleton.instance;
+    }
+
+    public int getPrecticien_id() {
+        return precticien_id;
+    }
+
+    public void setPrecticien_id(int precticien_id) {
+        this.precticien_id = precticien_id;
     }
 
     public int getId() {

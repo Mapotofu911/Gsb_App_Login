@@ -1,5 +1,6 @@
 package com.galaxy.gsb_app.Activity;
 
+import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -252,4 +253,15 @@ public class MainActivity extends AppCompatActivity {
         return User;
     }*/
 
+    @Override
+    public void onBackPressed() {
+
+        FragmentManager fragmentManager = getFragmentManager();
+
+        if(fragmentManager.getBackStackEntryCount() != 0) {
+            fragmentManager.popBackStack();
+        } else {
+            super.onBackPressed();
+        }
+    }
 }

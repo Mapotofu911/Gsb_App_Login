@@ -1,11 +1,13 @@
 package com.galaxy.gsb_app.Fragments;
 
+        import android.app.FragmentManager;
         import android.os.AsyncTask;
         import android.os.Bundle;
         import android.support.annotation.Nullable;
         import android.support.v4.app.Fragment;
         import android.support.v4.app.FragmentTransaction;
         import android.util.Log;
+        import android.view.KeyEvent;
         import android.view.LayoutInflater;
         import android.view.View;
         import android.view.ViewGroup;
@@ -87,7 +89,7 @@ public class CompteRendusFragment extends Fragment {
                 Log.e("cptid", String.valueOf(cptId));
 
                 myFrag.setArguments(args);
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, myFrag).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, myFrag).addToBackStack("ModifierCompteRendusFragment").commit();
             }
         });
 
@@ -99,10 +101,11 @@ public class CompteRendusFragment extends Fragment {
                 Bundle args = new Bundle();
                 int cptId = -1;
                 args.putInt("cptid", cptId);
+                args.putInt("visiteurId", Integer.valueOf(id));
                 Log.e("cptid", String.valueOf(cptId));
 
                 myFrag.setArguments(args);
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, myFrag).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, myFrag).addToBackStack("ModifierCompteRendusFragment").commit();
             }
         });
 
@@ -126,6 +129,7 @@ public class CompteRendusFragment extends Fragment {
         listComptesRendues.setAdapter(adapter);
 
     }
+
 
     private class GetComptesRendus extends AsyncTask<String, String, String> {
 
@@ -253,6 +257,7 @@ public class CompteRendusFragment extends Fragment {
                             }
 
                             c.setPracticien_nom(cptrendusObj.getString("NomPract"));
+                            c.setPract_id(cptrendusObj.getInt("practiciens_id"));
                             c.setVisiteur_rapport_id(cptrendusObj.getInt("visiteurs_id"));
 
                             compteRendusList.add(c);
@@ -299,5 +304,6 @@ public class CompteRendusFragment extends Fragment {
 
         return result.toString();
     }
+
 
 }

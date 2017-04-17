@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -95,10 +96,15 @@ public class ModifierCompteRendusFragment extends Fragment{
 
         Boolean gotInfo = false;
 
+        //nouveau ou pas
         if (x != -1) {
             new ModifierCompteRendusFragment.GetCompteRenduInfo().execute();
             new ModifierCompteRendusFragment.GetCompteRenduMedPres().execute();
             new ModifierCompteRendusFragment.GetCompteRenduMedOff().execute();
+        }
+        else
+        {
+            crs.setVisiteur_rapport_id(getArguments().getInt("visiteurId"));
         }
 
         autoCompleteTextViewMed = (AutoCompleteTextView)view.findViewById(R.id.autoCompleteTextViewMed);
@@ -177,8 +183,8 @@ public class ModifierCompteRendusFragment extends Fragment{
             @Override
             public void onClick(View view) {
 
-                ArrayList<Medicaments> PresitMedPres = new ArrayList<Medicaments>();
-                ArrayList<Medicaments> PresitMedOff = new ArrayList<Medicaments>();
+                ArrayList<Medicaments> PresitMedPres = new ArrayList<>();
+                ArrayList<Medicaments> PresitMedOff = new ArrayList<>();
 
                 Integer id = getArguments().getInt("cptid");
                 crs.setId(id);
@@ -210,13 +216,23 @@ public class ModifierCompteRendusFragment extends Fragment{
                 }
                 crs.setMedicamentsOfferts_rapport(PresitMedOff);
 
+                String PracticienNom = autoCompleteTextView.getText().toString();
+
+                for (int i = 0; i<practicienListM.size(); i++ )
+                {
+                    if (Objects.equals(practicienListM.get(i).getNom(), PracticienNom))
+                    {
+                        crs.setPrecticien_id(practicienListM.get(i).getId());
+                    }
+                }
+
                 FinaliserCompteRendu nextFrag = new FinaliserCompteRendu();
                 Bundle args2 = new Bundle();
                 Bundle args = getArguments();
                 args2.putInt("cptid", args.getInt("cptid"));
                 Log.e("Args2", String.valueOf(args.getInt("cptid")));
                 nextFrag.setArguments(args2);
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, nextFrag).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, nextFrag).addToBackStack("FinaliserCompteRendu").commit();
             }
         });
 
@@ -230,6 +246,7 @@ public class ModifierCompteRendusFragment extends Fragment{
         //you can set the title for your toolbar here for different fragments different titles
         getActivity().setTitle("Compte - Rendus");
     }
+
 
     private class GetPracticiens extends AsyncTask<Void, Void, Void> {
 
