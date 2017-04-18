@@ -5,9 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
+import com.galaxy.gsb_app.Class.CompteRenduMedOfferts;
 import com.galaxy.gsb_app.Class.Medicaments;
 import com.galaxy.gsb_app.Class.Practiciens;
 import com.galaxy.gsb_app.Handler.HttpHandler;
@@ -74,12 +73,12 @@ public class ModifierCompteRendusFragment extends Fragment{
         practicienListM = new ArrayList<>();
         medicamentsList = new ArrayList<>();
         listMedPresente = new ArrayList<>();
-        listMedOffert = new ArrayList<Map<String, String>>();
+        listMedOffert = new ArrayList<>();
         crs = CompteRenduSingleton.getInstance();
 
         final EditText EditTextNb = (EditText)view.findViewById(R.id.EditTextNb);
 
-        adapterListViewPresente = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, android.R.id.text1, listMedPresente);
+        adapterListViewPresente = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, android.R.id.text1, listMedPresente);
         adapterMedOffert = new SimpleAdapter(getContext(), listMedOffert, android.R.layout.simple_list_item_2, new String[] {"First Line", "Second Line" }, new int[] {android.R.id.text1, android.R.id.text2 });
 
         ListView listViewPres = (ListView) view.findViewById(R.id.listViewPres);
@@ -94,18 +93,14 @@ public class ModifierCompteRendusFragment extends Fragment{
         Integer x = args.getInt("cptid");
         Log.e("cptid2", x.toString());
 
-        Boolean gotInfo = false;
-
         //nouveau ou pas
-        if (x != -1) {
-            new ModifierCompteRendusFragment.GetCompteRenduInfo().execute();
-            new ModifierCompteRendusFragment.GetCompteRenduMedPres().execute();
-            new ModifierCompteRendusFragment.GetCompteRenduMedOff().execute();
-        }
-        else
-        {
+        if (x == -1) {
             crs.setVisiteur_rapport_id(getArguments().getInt("visiteurId"));
         }
+
+        new ModifierCompteRendusFragment.GetCompteRenduInfo().execute();
+        new ModifierCompteRendusFragment.GetCompteRenduMedPres().execute();
+        new ModifierCompteRendusFragment.GetCompteRenduMedOff().execute();
 
         autoCompleteTextViewMed = (AutoCompleteTextView)view.findViewById(R.id.autoCompleteTextViewMed);
         autoCompleteTextViewMed.setOnClickListener(new View.OnClickListener() {
@@ -136,10 +131,22 @@ public class ModifierCompteRendusFragment extends Fragment{
             @Override
             public void onClick(View view) {
 
-                Log.e("Ajouter 1 : ","" + autoCompleteTextViewMed.getText());
-                listMedPresente.add(autoCompleteTextViewMed.getText().toString());
-                adapterListViewPresente.notifyDataSetChanged();
+                ArrayList<String> medNom = new ArrayList<>();
 
+                for (int i = 0; i < medicamentsList.size(); i++) {
+                    medNom.add(medicamentsList.get(i).getNomMed());
+                }
+
+                if (medNom.contains(autoCompleteTextViewMed.getText().toString()))
+                {
+                    Log.e("Ajouter 1 : ","" + autoCompleteTextViewMed.getText());
+                    listMedPresente.add(autoCompleteTextViewMed.getText().toString());
+                    adapterListViewPresente.notifyDataSetChanged();
+                }
+                else
+                {
+                    autoCompleteTextViewMed.setError("Ce médicament n'existe pas");
+                }
             }
 
         });
@@ -152,16 +159,33 @@ public class ModifierCompteRendusFragment extends Fragment{
                 Log.e("Ajouter 2 : ","" + autoCompleteTextViewMed2.getText());
                 Log.e("Ajouter 3 : ","" + EditTextNb.getText());
 
-                Map<String, String> MapMed = new HashMap<String, String>(2);
+                Map<String, String> MapMed = new HashMap<>();
 
-                MapMed.put("First Line", autoCompleteTextViewMed2.getText().toString());
-                MapMed.put("Second Line",EditTextNb.getText().toString());
+                ArrayList<String> medNom = new ArrayList<>();
 
-                listMedOffert.add(MapMed);
+                for (int i = 0; i < medicamentsList.size(); i++) {
+                    medNom.add(medicamentsList.get(i).getNomMed());
+                }
 
-                adapterMedOffert.notifyDataSetChanged();
+                if (medNom.contains(autoCompleteTextViewMed2.getText().toString()))
+                {
+                    if(EditTextNb.getText().toString().equals(""))
+                    {
+                        EditTextNb.setError("Veuillez entre un nombre d'échanittlons offerts");
+                    }
+                    else
+                    {
+                        MapMed.put("First Line", autoCompleteTextViewMed2.getText().toString());
+                        MapMed.put("Second Line", EditTextNb.getText().toString());
+                        listMedOffert.add(MapMed);
+                        adapterMedOffert.notifyDataSetChanged();
+                    }
+                }
+                else
+                {
+                    autoCompleteTextViewMed2.setError("Ce médicament n'existe pas");
+                }
             }
-
         });
 
         final Button buttonReset = (Button)view.findViewById(R.id.buttonReset);
@@ -183,59 +207,75 @@ public class ModifierCompteRendusFragment extends Fragment{
             @Override
             public void onClick(View view) {
 
-                ArrayList<Medicaments> PresitMedPres = new ArrayList<>();
-                ArrayList<Medicaments> PresitMedOff = new ArrayList<>();
+                ArrayList<String> practNom = new ArrayList<>();
 
-                Integer id = getArguments().getInt("cptid");
-                crs.setId(id);
+                for (int i = 0; i < practicienListM.size(); i++) {
 
-                for (int i = 0; i < listMedPresente.size(); i++)
+                    practNom.add(practicienListM.get(i).getNom());
+                }
+
+                if(practNom.contains(autoCompleteTextView.getText().toString()))
                 {
-                    for (int j = 0; j < medicamentsList.size(); j++)
+                    ArrayList<Medicaments> PresitMedPres = new ArrayList<>();
+                    ArrayList<CompteRenduMedOfferts> PresitMedOff = new ArrayList<>();
+
+                    Integer id = getArguments().getInt("cptid");
+                    crs.setId(id);
+
+                    for (int i = 0; i < listMedPresente.size(); i++)
                     {
-                        if(Objects.equals(listMedPresente.get(i), medicamentsList.get(j).getNomMed()))
+                        for (int j = 0; j < medicamentsList.size(); j++)
                         {
-                            PresitMedPres.add(medicamentsList.get(j));
-                            Log.e("listMedPresente", listMedPresente.get(i));
+                            if(Objects.equals(listMedPresente.get(i), medicamentsList.get(j).getNomMed()))
+                            {
+                                PresitMedPres.add(medicamentsList.get(j));
+                                Log.e("listMedPresente", listMedPresente.get(i));
+                            }
                         }
                     }
-                }
-                crs.setMedicamentsPresente_rapport(PresitMedPres);
+                    crs.setMedicamentsPresente_rapport(PresitMedPres);
 
-                for (int i = 0; i < listMedOffert.size(); i++)
-                {
-                    for (int j = 0; j < medicamentsList.size(); j++)
+                    for (int i = 0; i < listMedOffert.size(); i++)
                     {
-                        if(Objects.equals(listMedOffert.get(i).get("First Line"), medicamentsList.get(j).getNomMed()))
+                        for (int j = 0; j < medicamentsList.size(); j++)
                         {
-                            PresitMedOff.add(medicamentsList.get(j));
-                            Log.e("listMedOffert", listMedOffert.get(i).get("First Line"));
+                            if(Objects.equals(listMedOffert.get(i).get("First Line"), medicamentsList.get(j).getNomMed()))
+                            {
+                                CompteRenduMedOfferts m = new CompteRenduMedOfferts();
+                                m.setMedicament(medicamentsList.get(j));
+                                m.setQuantity(Integer.valueOf(listMedOffert.get(i).get("Second Line")));
+                                PresitMedOff.add(m);
+                                Log.e("listMedOffert", listMedOffert.get(i).get("First Line"));
+                            }
+
                         }
-
                     }
-                }
-                crs.setMedicamentsOfferts_rapport(PresitMedOff);
+                    crs.setMedicamentsOfferts_rapport(PresitMedOff);
 
-                String PracticienNom = autoCompleteTextView.getText().toString();
+                    String PracticienNom = autoCompleteTextView.getText().toString();
 
-                for (int i = 0; i<practicienListM.size(); i++ )
-                {
-                    if (Objects.equals(practicienListM.get(i).getNom(), PracticienNom))
+                    for (int i = 0; i<practicienListM.size(); i++ )
                     {
-                        crs.setPrecticien_id(practicienListM.get(i).getId());
+                        if (Objects.equals(practicienListM.get(i).getNom(), PracticienNom))
+                        {
+                            crs.setPrecticien_id(practicienListM.get(i).getId());
+                        }
                     }
-                }
 
-                FinaliserCompteRendu nextFrag = new FinaliserCompteRendu();
-                Bundle args2 = new Bundle();
-                Bundle args = getArguments();
-                args2.putInt("cptid", args.getInt("cptid"));
-                Log.e("Args2", String.valueOf(args.getInt("cptid")));
-                nextFrag.setArguments(args2);
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, nextFrag).addToBackStack("FinaliserCompteRendu").commit();
+                    FinaliserCompteRendu nextFrag = new FinaliserCompteRendu();
+                    Bundle args2 = new Bundle();
+                    Bundle args = getArguments();
+                    args2.putInt("cptid", args.getInt("cptid"));
+                    Log.e("Args2", String.valueOf(args.getInt("cptid")));
+                    nextFrag.setArguments(args2);
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, nextFrag).addToBackStack("FinaliserCompteRendu").commit();
+                }
+                else
+                {
+                    autoCompleteTextView.setError("Ce praticien n'existe pas.");
+                }
             }
         });
-
 
         return view;
     }
@@ -755,7 +795,7 @@ public class ModifierCompteRendusFragment extends Fragment{
                         {
                             JSONObject m = med.getJSONObject(i);
 
-                            Map<String, String> MapMed = new HashMap<String, String>(2);
+                            Map<String, String> MapMed = new HashMap<>();
 
                             MapMed.put("First Line", m.getString("NomMed"));
                             MapMed.put("Second Line", String.valueOf(m.getInt("Quantity")));

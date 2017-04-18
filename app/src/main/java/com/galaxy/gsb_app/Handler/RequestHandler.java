@@ -1,4 +1,4 @@
-package com.galaxy.gsb_app.Class;
+package com.galaxy.gsb_app.Handler;
 
 
 import java.io.BufferedReader;

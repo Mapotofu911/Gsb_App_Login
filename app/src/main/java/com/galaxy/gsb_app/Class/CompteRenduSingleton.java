@@ -14,7 +14,7 @@ public final class CompteRenduSingleton {
     private int precticien_id;
     private List<Medicaments> medicamentsPresente_rapport;
     private String date_rapport;
-    private List<Medicaments> medicamentsOfferts_rapport;
+    private List<CompteRenduMedOfferts> medicamentsOfferts_rapport;
     private String motif;
     private Boolean remplacant;
     private Boolean documentation;
@@ -41,6 +41,14 @@ public final class CompteRenduSingleton {
             }
         }
         return CompteRenduSingleton.instance;
+    }
+
+    public List<CompteRenduMedOfferts> getMedicamentsOfferts_rapport() {
+        return medicamentsOfferts_rapport;
+    }
+
+    public void setMedicamentsOfferts_rapport(List<CompteRenduMedOfferts> medicamentsOfferts_rapport) {
+        this.medicamentsOfferts_rapport = medicamentsOfferts_rapport;
     }
 
     public int getPrecticien_id() {
@@ -81,14 +89,6 @@ public final class CompteRenduSingleton {
 
     public void setDate_rapport(String date_rapport) {
         this.date_rapport = date_rapport;
-    }
-
-    public List<Medicaments> getMedicamentsOfferts_rapport() {
-        return medicamentsOfferts_rapport;
-    }
-
-    public void setMedicamentsOfferts_rapport(List<Medicaments> medicamentsOfferts_rapport) {
-        this.medicamentsOfferts_rapport = medicamentsOfferts_rapport;
     }
 
     public String getMotif() {

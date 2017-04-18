@@ -3,46 +3,35 @@ package com.galaxy.gsb_app.Fragments;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.galaxy.gsb_app.Activity.MainActivity;
+import com.galaxy.gsb_app.Class.CompteRenduMedOfferts;
 import com.galaxy.gsb_app.Class.CompteRenduSingleton;
-import com.galaxy.gsb_app.Class.RequestHandler;
-import com.galaxy.gsb_app.Handler.HttpHandler;
+import com.galaxy.gsb_app.Handler.RequestHandler;
 import com.galaxy.gsb_app.R;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
+import java.util.List;
+
+import static java.sql.Types.NULL;
 
 /**
  * Created by Mapotofu on 30/03/2017.
@@ -87,8 +76,23 @@ public class FinaliserCompteRendu extends Fragment {
         buttonSoumettre.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                crs.setBilan(String.valueOf(editTextBilan.getText()));
-                crs.setMotif(String.valueOf(editTextMotif.getText()));
+                if (editTextBilan.getText().toString().equals(""))
+                {
+                    crs.setBilan(" ");
+                }
+                else
+                {
+                    crs.setBilan(String.valueOf(editTextBilan.getText()));
+                }
+
+                if (editTextMotif.getText().toString().equals(""))
+                {
+                    crs.setBilan(" ");
+                }
+                else
+                {
+                    crs.setMotif(String.valueOf(editTextMotif.getText()));
+                }
 
                 if (checkBoxDocumentation.isChecked())
                     crs.setDocumentation(true);
@@ -105,8 +109,11 @@ public class FinaliserCompteRendu extends Fragment {
                 else
                     crs.setSaisieDefinitive(false);
 
-                updateEmployee();
+                updateCompteRendu();
 
+
+                CompteRendusFragment myFrag = new CompteRendusFragment();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, myFrag).addToBackStack("CompteRendusFragment").commit();
             }
         });
 
@@ -120,23 +127,14 @@ public class FinaliserCompteRendu extends Fragment {
         getActivity().setTitle("Compte - Rendus");
     }
 
-    private void updateEmployee() {
+    private void updateCompteRendu() {
 
-        class UpdateEmployee extends AsyncTask<Void, Void, String> {
-
-            ProgressDialog loading;
-
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-                loading = ProgressDialog.show(getActivity(), "Updating...", "Wait...", false, false);
-            }
+        class updateCompteRendu extends AsyncTask<Void, Void, String> {
 
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
-                loading.dismiss();
-                Toast.makeText(getActivity(), "Message", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "Compte rendu mis à jour", Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -146,10 +144,9 @@ public class FinaliserCompteRendu extends Fragment {
 
                 HashMap<String, String> hashMap = new HashMap<>();
 
-                if(args2.getInt("cptid")!=-1)
+                if(args2.getInt("cptid")!= -1)
                 {
                     hashMap.put("id", String.valueOf(crs.getId()));
-
                 }
 
                 hashMap.put("motif", String.valueOf(crs.getMotif()));
@@ -157,14 +154,6 @@ public class FinaliserCompteRendu extends Fragment {
                 hashMap.put("visiteurs_id", String.valueOf(crs.getVisiteur_rapport_id()));
                 hashMap.put("bilan", String.valueOf(crs.getBilan()));
                 hashMap.put("cptid", String.valueOf(args2.getInt("cptid")));
-
-                SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
-                Date now = new Date();
-                String strDate = sdfDate.format(now);
-
-                Log.e("date", String.valueOf(crs.getVisiteur_rapport_id()));
-
-                hashMap.put("dateNew", strDate);
 
                 if (!crs.getSaisieDefinitive()) {
                     hashMap.put("SaisieDefinitive", String.valueOf(0));
@@ -187,18 +176,52 @@ public class FinaliserCompteRendu extends Fragment {
 
                 RequestHandler rh = new RequestHandler();
 
-                String s = rh.sendPostRequest("http://10.0.2.2/apigsb/updateCompteRendu.php", hashMap);
+                String repId = rh.sendPostRequest("http://10.0.2.2/apigsb/updateCompteRendu.php", hashMap);
+                Log.e("repId", repId);
 
-                Log.e("s", s);
+                String rep ="";
 
-                return s;
+                if (crs.getId() != NULL && crs.getId()!= -1)
+                {
+                    HashMap<String, String> hm = new HashMap<>();
+                    hm.put("cptId", String.valueOf(crs.getId()));
+                    hm.put("visiteurId", String.valueOf(crs.getVisiteur_rapport_id()));
+                    rep = rh.sendPostRequest("http://10.0.2.2/apigsb/deleteCompteRenduMed.php", hm);
+                    Log.e("s1", rep);
+                }
+
+                if(crs.getId() == -1)
+                {
+                    crs.setId(Integer.valueOf(repId));
+                }
+
+                for (int i = 0; i < crs.getMedicamentsOfferts_rapport().size(); i++)
+                {
+                    HashMap<String,String> hm = new HashMap<>();
+                    hm.put("medId",String.valueOf(crs.getMedicamentsOfferts_rapport().get(i).getMedicament().getId()));
+                    hm.put("quantity",String.valueOf(crs.getMedicamentsOfferts_rapport().get(i).getQuantity()));
+                    hm.put("cptId", String.valueOf(crs.getId()));
+
+                    rep = rh.sendPostRequest("http://10.0.2.2/apigsb/updateCompteRenduMedicamentsOfferts.php", hm);
+                    Log.e("s2", rep);
+                }
+
+                for(int i = 0; i < crs.getMedicamentsPresente_rapport().size(); i++)
+                {
+                    HashMap<String,String> hm = new HashMap<>();
+                    hm.put("medId",String.valueOf(crs.getMedicamentsPresente_rapport().get(i).getId()));
+                    hm.put("cptId", String.valueOf(crs.getId()));
+
+                    rep = rh.sendPostRequest("http://10.0.2.2/apigsb/updateCompteRenduMedicamentsPresente.php", hm);
+                    Log.e("s3", rep);
+                }
+
+
+                return rep;
             }
         }
 
-        UpdateEmployee ue = new UpdateEmployee();
+        updateCompteRendu ue = new updateCompteRendu();
         ue.execute();
     }
-
-
-
 }

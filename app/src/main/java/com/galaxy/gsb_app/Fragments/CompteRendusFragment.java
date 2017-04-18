@@ -1,23 +1,24 @@
 package com.galaxy.gsb_app.Fragments;
 
-        import android.app.FragmentManager;
+        import android.app.ProgressDialog;
         import android.os.AsyncTask;
         import android.os.Bundle;
         import android.support.annotation.Nullable;
         import android.support.v4.app.Fragment;
-        import android.support.v4.app.FragmentTransaction;
         import android.util.Log;
-        import android.view.KeyEvent;
         import android.view.LayoutInflater;
         import android.view.View;
         import android.view.ViewGroup;
         import android.widget.AdapterView;
         import android.widget.Button;
+        import android.widget.EditText;
         import android.widget.ListView;
         import android.widget.TextView;
+        import android.widget.Toast;
 
         import com.galaxy.gsb_app.Class.CompteRendus;
         import com.galaxy.gsb_app.Class.CompteRendusAdapter;
+        import com.galaxy.gsb_app.Handler.RequestHandler;
         import com.galaxy.gsb_app.R;
 
         import org.json.JSONArray;
@@ -35,15 +36,15 @@ package com.galaxy.gsb_app.Fragments;
         import java.net.URL;
         import java.net.URLEncoder;
         import java.util.ArrayList;
+        import java.util.HashMap;
         import java.util.Iterator;
         import java.util.List;
 
-
 public class CompteRendusFragment extends Fragment {
 
-    ListView listComptesRendues;
+    private ListView listComptesRendues;
     private List<CompteRendus> compteRendusList;
-    String id;
+    private String idVisiteur;
 
     @Nullable
     @Override
@@ -51,11 +52,11 @@ public class CompteRendusFragment extends Fragment {
         //returning our layout file
         //change R.layout.yourlayoutfilename for each of your fragments
 
-        compteRendusList = new ArrayList<>();
+        //compteRendusList = new ArrayList<>();
 
         //get user id
-        id = getArguments().getString("visiteurId");
-        Log.e("paramsid", id);
+        idVisiteur = getArguments().getString("visiteurId");
+        Log.e("paramsid", idVisiteur);
 
         final View view = inflater.inflate(R.layout.fragment_compte_rendus, container, false);
 
@@ -86,6 +87,7 @@ public class CompteRendusFragment extends Fragment {
                 Bundle args = new Bundle();
 
                 args.putInt("cptid", cptId);
+                args.putInt("visiteurId", Integer.valueOf(idVisiteur));
                 Log.e("cptid", String.valueOf(cptId));
 
                 myFrag.setArguments(args);
@@ -101,11 +103,22 @@ public class CompteRendusFragment extends Fragment {
                 Bundle args = new Bundle();
                 int cptId = -1;
                 args.putInt("cptid", cptId);
-                args.putInt("visiteurId", Integer.valueOf(id));
+                args.putInt("visiteurId", Integer.valueOf(idVisiteur));
                 Log.e("cptid", String.valueOf(cptId));
 
                 myFrag.setArguments(args);
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, myFrag).addToBackStack("ModifierCompteRendusFragment").commit();
+            }
+        });
+
+        final EditText editTextDelete = (EditText)view.findViewById(R.id.editTextDelete);
+        final Button buttonDelete = (Button)view.findViewById(R.id.buttonDelete);
+        buttonDelete.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                deleteCompteRendu(editTextDelete.getText().toString());
+                new CompteRendusFragment.GetComptesRendus().execute();
+
             }
         });
 
@@ -127,7 +140,6 @@ public class CompteRendusFragment extends Fragment {
 
         CompteRendusAdapter adapter = new CompteRendusAdapter(getContext(), listRapport);
         listComptesRendues.setAdapter(adapter);
-
     }
 
 
@@ -146,7 +158,7 @@ public class CompteRendusFragment extends Fragment {
                 JSONObject postDataParams = new JSONObject();
 
 
-                postDataParams.put("visiteursId", id);
+                postDataParams.put("visiteursId", idVisiteur);
 
 
                 Log.e("params",postDataParams.toString());
@@ -208,6 +220,7 @@ public class CompteRendusFragment extends Fragment {
         @Override
         protected void onPostExecute(String result) {
 
+            compteRendusList = new ArrayList<>();
 
             if (result != null) {
                 try {
@@ -305,5 +318,59 @@ public class CompteRendusFragment extends Fragment {
         return result.toString();
     }
 
+    private void deleteCompteRendu(String myEditTextDelete) {
 
+        class deleteCompteRendu extends AsyncTask<String, String, String> {
+
+            ProgressDialog loading;
+            String rep2;
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                loading = ProgressDialog.show(getActivity(), "Updating...", "Wait...", false, false);
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                loading.dismiss();
+                Toast.makeText(getActivity(), rep2, Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            protected String doInBackground(String... params) {
+
+                boolean cptExist = false;
+                String editTextDelete = params[0];
+
+                for (int i = 0; i < compteRendusList.size(); i++) {
+
+                    if (compteRendusList.get(i).getId() == Integer.valueOf(String.valueOf(editTextDelete)))
+                    {
+                        cptExist = true;
+                    }
+                }
+
+                if(cptExist)
+                {
+                    RequestHandler rh = new RequestHandler();
+                    HashMap<String, String> hm = new HashMap<>();
+                    hm.put("cptId", String.valueOf(editTextDelete));
+                    hm.put("visiteurId", String.valueOf(idVisiteur));
+
+                    rep2 = rh.sendPostRequest("http://10.0.2.2/apigsb/deleteCompteRendu.php", hm);
+                    Log.e("Delete rep", rep2);
+                    return rep2;
+                }
+                else
+                {
+                    return rep2 = "Ce numéro de compte rendu n'existe pas.";
+                }
+            }
+        }
+
+        deleteCompteRendu ue = new deleteCompteRendu();
+        ue.execute(myEditTextDelete);
+    }
 }
