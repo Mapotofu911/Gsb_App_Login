@@ -113,7 +113,10 @@ public class FinaliserCompteRendu extends Fragment {
 
 
                 CompteRendusFragment myFrag = new CompteRendusFragment();
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, myFrag).addToBackStack("CompteRendusFragment").commit();
+                Bundle args = new Bundle();
+                args.putString("visiteurId", String.valueOf(crs.getVisiteur_rapport_id()));
+                myFrag.setArguments(args);
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, myFrag).addToBackStack(null).commit();
             }
         });
 

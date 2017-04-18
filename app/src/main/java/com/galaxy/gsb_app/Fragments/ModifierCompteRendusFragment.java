@@ -266,6 +266,7 @@ public class ModifierCompteRendusFragment extends Fragment{
                     Bundle args2 = new Bundle();
                     Bundle args = getArguments();
                     args2.putInt("cptid", args.getInt("cptid"));
+                    args2.putInt("visiteurId", args.getInt("visiteurId"));
                     Log.e("Args2", String.valueOf(args.getInt("cptid")));
                     nextFrag.setArguments(args2);
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, nextFrag).addToBackStack("FinaliserCompteRendu").commit();
