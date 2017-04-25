@@ -55,24 +55,23 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/scrollView2"
         android:layout_marginTop="10dp"
-        android:text="Cliquez sur un compte-rendus pour le modifier ou l'afficher."
+        android:text="Cliquez sur un compte-rendus pour le modifier."
         android:textAlignment="center"
         android:textColor="@android:color/black"
-        android:textSize="14sp"
-        tools:text="Cliquez sur un compte-rendus pour le modifier ou l'afficher." />
+        android:textSize="18sp"
+        tools:text="Cliquez sur un compte-rendus pour le modifier." />
 
     <TextView
-        android:layout_marginTop="10dp"
         android:id="@+id/textView33"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/buttonDelete"
         android:text="Entrez un numéro de rapport pour le supprimer"
         android:textAlignment="center"
         android:textColor="@android:color/black"
-        android:textSize="14sp"
-        tools:text="Entrez un numéro de rapport pour le supprimer"
-        android:layout_below="@+id/buttonDelete"
-        android:layout_alignParentStart="true" />
+        android:textSize="18sp"
+        tools:text="Entrez un numéro de rapport pour le supprimer" />
 
     <Button
         android:id="@+id/buttonDelete"

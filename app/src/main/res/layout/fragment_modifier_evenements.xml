@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView35"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView37"
+        android:layout_marginTop="20sp"
+        android:text="Titre :"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_marginTop="15sp"
+        android:id="@+id/textViexNbPlace"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nombre de places :"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_below="@+id/editTextTitre"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_marginTop="20sp"
+        android:id="@+id/textView39"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Contenu :"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_below="@+id/editTextNbPlaces"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/textView37"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="15sp"
+        android:text="Date :"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="300sp"
+        android:id="@+id/scrollView3"
+        android:layout_below="@+id/textView39"
+        android:layout_alignParentStart="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <EditText
+                android:id="@+id/editTextContent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ems="10"
+                android:inputType="textMultiLine"
+                android:textAlignment="center"
+                android:textColor="@android:color/black" />
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/buttonSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/scrollView3"
+        android:layout_marginEnd="44dp"
+        android:layout_marginTop="27dp"
+        android:text="Sauvegarder" />
+
+    <Button
+        android:id="@+id/buttonDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/buttonSave"
+        android:layout_alignBottom="@+id/buttonSave"
+        android:layout_toEndOf="@+id/textView37"
+        android:text="Supprimer" />
+
+    <EditText
+        android:id="@+id/editTextTitre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:layout_below="@+id/editTextDate"
+        android:layout_alignStart="@+id/editTextNbPlaces" />
+
+    <EditText
+        android:id="@+id/editTextNbPlaces"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textViexNbPlace"
+        android:layout_alignBottom="@+id/textViexNbPlace"
+        android:layout_toEndOf="@+id/textViexNbPlace"
+        android:ems="10"
+        android:inputType="number"
+        android:textAlignment="center" />
+
+    <EditText
+        android:id="@+id/editTextDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView37"
+        android:layout_alignBottom="@+id/textView37"
+        android:layout_alignStart="@+id/editTextTitre"
+        android:layout_marginTop="15sp"
+        android:ems="10"
+        android:inputType="date"
+        android:textAlignment="center" />
+
+</RelativeLayout>

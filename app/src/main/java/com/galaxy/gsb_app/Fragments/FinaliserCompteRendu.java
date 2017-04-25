@@ -1,12 +1,9 @@
 package com.galaxy.gsb_app.Fragments;
 
-import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,20 +13,11 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.galaxy.gsb_app.Activity.MainActivity;
-import com.galaxy.gsb_app.Class.CompteRenduMedOfferts;
 import com.galaxy.gsb_app.Class.CompteRenduSingleton;
 import com.galaxy.gsb_app.Handler.RequestHandler;
 import com.galaxy.gsb_app.R;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.text.SimpleDateFormat;
-import java.util.Collection;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 
 import static java.sql.Types.NULL;
 
@@ -40,11 +28,6 @@ import static java.sql.Types.NULL;
 public class FinaliserCompteRendu extends Fragment {
 
     CompteRenduSingleton crs;
-    private CheckBox checkBoxRemplacement;
-    private CheckBox checkBoxDocumentation;
-    private CheckBox checkBoxSaisie;
-    private EditText editTextMotif;
-    private EditText editTextBilan;
 
     @Nullable
     @Override

@@ -25,16 +25,6 @@
             android:icon="@mipmap/ic_launcher"
             android:title="Visiteurs" />
 
-        <item
-            android:id="@+id/nav_tickets_incidents"
-            android:icon="@mipmap/ic_launcher"
-            android:title="Tickets d'incidents" />
-
-        <item
-            android:id="@+id/nav_vehicule"
-            android:icon="@mipmap/ic_launcher"
-            android:title="Park Véhicule" />
-
     </group>
 
 

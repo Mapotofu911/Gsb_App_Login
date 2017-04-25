@@ -6,15 +6,43 @@
     <CalendarView
         android:id="@+id/simpleCalendarView"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" />
+        android:layout_height="300dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/simpleCalendarView"
+        android:layout_marginTop="20sp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ListView
+                android:id="@+id/listViewAgenda"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_above="@+id/addEvent"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/simpleCalendarView"
+                android:background="@drawable/bordertextview"
+                android:cacheColorHint="@color/background"
+                android:divider="@android:drawable/divider_horizontal_dark"
+                android:dividerHeight="2sp"
+                android:footerDividersEnabled="true"
+                android:headerDividersEnabled="true" />
+        </LinearLayout>
+    </ScrollView>
 
     <Button
-        android:text="Button"
+        android:id="@+id/buttonAjouter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="134dp"
-        android:id="@+id/addEvent" />
+        android:text="Ajouter" />
 
 </RelativeLayout>

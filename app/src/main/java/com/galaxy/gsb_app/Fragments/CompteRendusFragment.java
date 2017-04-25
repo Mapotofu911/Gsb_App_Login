@@ -116,9 +116,16 @@ public class CompteRendusFragment extends Fragment {
         buttonDelete.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                deleteCompteRendu(editTextDelete.getText().toString());
-                new CompteRendusFragment.GetComptesRendus().execute();
-
+                if (editTextDelete.getText().toString().equals(""))
+                {
+                    //loading.dismiss();
+                    Toast.makeText(getActivity(), "Veuillez entrez un numéro de rapport.", Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    deleteCompteRendu(editTextDelete.getText().toString());
+                    new CompteRendusFragment.GetComptesRendus().execute();
+                }
             }
         });
 

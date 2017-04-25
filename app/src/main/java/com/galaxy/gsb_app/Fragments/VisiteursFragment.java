@@ -326,7 +326,7 @@ public class VisiteursFragment extends Fragment {
                             v.setRegion(VisiteurObj.getString("Libelle"));
                             v.setSecteur(VisiteurObj.getString("Secteur"));
                             v.setTel(VisiteurObj.getString("Tel"));
-                            v.setMail(VisiteurObj.getString("Mail"));
+                            v.setMail(VisiteurObj.getString("email"));
                             v.setLaboratoire(VisiteurObj.getString("Laboratoire"));
 
                             visiteursList.add(v);

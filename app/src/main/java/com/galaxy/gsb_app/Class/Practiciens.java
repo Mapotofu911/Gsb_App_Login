@@ -1,5 +1,7 @@
 package com.galaxy.gsb_app.Class;
 
+import android.content.Intent;
+
 /**
  * Created by Mapotofu on 27/01/2017.
  */

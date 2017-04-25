@@ -49,6 +49,7 @@ public class RequestHandler {
             //Creating an output stream
             OutputStream os = conn.getOutputStream();
 
+
             //Writing parameters to the request
             //We are using a method getPostDataString which is defined below
             BufferedWriter writer = new BufferedWriter(

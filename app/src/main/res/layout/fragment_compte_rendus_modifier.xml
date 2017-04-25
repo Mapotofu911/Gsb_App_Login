@@ -8,11 +8,10 @@
             android:id="@+id/buttonPres"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/autoCompleteTextViewMed"
-            android:layout_alignEnd="@+id/autoCompleteTextView"
-            android:layout_alignRight="@+id/autoCompleteTextView"
             android:text="Ajouter"
-            android:textSize="18dp" />
+            android:textSize="18dp"
+            android:layout_above="@+id/ScrollView2"
+            android:layout_alignParentEnd="true" />
 
         <AutoCompleteTextView
             android:id="@+id/autoCompleteTextViewMed"
@@ -78,11 +77,10 @@
             android:id="@+id/buttonOffer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/autoCompleteTextViewMed2"
-            android:layout_alignLeft="@+id/buttonPres"
-            android:layout_alignStart="@+id/buttonPres"
             android:text="Ajouter"
-            android:textSize="18dp" />
+            android:textSize="18dp"
+            android:layout_above="@+id/ScrollView3"
+            android:layout_alignParentEnd="true" />
 
     <Button
         android:id="@+id/buttonNext"
@@ -163,14 +161,13 @@
         android:id="@+id/EditTextNb"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/autoCompleteTextViewMed2"
-        android:layout_alignBottom="@+id/autoCompleteTextViewMed2"
-        android:layout_toEndOf="@+id/autoCompleteTextViewMed2"
-        android:layout_toRightOf="@+id/autoCompleteTextViewMed2"
         android:ems="10"
         android:hint="Nb"
         android:inputType="number"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:layout_alignBaseline="@+id/autoCompleteTextViewMed2"
+        android:layout_alignBottom="@+id/autoCompleteTextViewMed2"
+        android:layout_toEndOf="@+id/autoCompleteTextViewMed2" />
 
     <Button
         android:id="@+id/buttonReset"

@@ -97,8 +97,16 @@ public class NavigationDrawer extends AppCompatActivity
         //initializing the fragment object which is selected
         switch (itemId) {
             case R.id.nav_agenda:
-                fragment = new AgendaFragment();
+                /*fragment = new AgendaFragment();
+                tag = "AgendaFragment";*/
+                AgendaFragment myFrag2 = new AgendaFragment();
+                String s2 = getIntent().getStringExtra("visiteurNom");
+                Bundle bundle2 = new Bundle();
+                bundle2.putString("username", s2);
+                myFrag2.setArguments(bundle2);
+                FragmentTransaction ft2 = getSupportFragmentManager().beginTransaction();
                 tag = "AgendaFragment";
+                ft2.replace(R.id.content_frame, myFrag2).addToBackStack("tag").commit();
                 break;
             case R.id.nav_comptes_rendues:
                 CompteRendusFragment myFrag = new CompteRendusFragment();
@@ -121,14 +129,6 @@ public class NavigationDrawer extends AppCompatActivity
             case R.id.nav_visiteurs:
                 fragment = new VisiteursFragment();
                 tag = "VisiteursFragment";
-                break;
-            case R.id.nav_tickets_incidents:
-                fragment = new TicketsDIncidentsFragment();
-                tag = "TicketsDIncidentsFragment";
-                break;
-            case R.id.nav_vehicule:
-                fragment = new VehiculeFragment();
-                tag = "VehiculeFragment";
                 break;
         }
 

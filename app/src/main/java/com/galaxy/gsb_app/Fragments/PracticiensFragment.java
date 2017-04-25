@@ -1,6 +1,8 @@
 package com.galaxy.gsb_app.Fragments;
 
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,6 +16,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.TabHost;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.galaxy.gsb_app.Handler.HttpHandler;
 import com.galaxy.gsb_app.Class.Practiciens;
@@ -25,6 +28,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.galaxy.gsb_app.R.id.textViewTel;
 
 
 public class PracticiensFragment extends Fragment{
@@ -52,20 +57,8 @@ public class PracticiensFragment extends Fragment{
         final TextView PractCP = (TextView)view.findViewById(R.id.textViewCP);
         final TextView PractType = (TextView)view.findViewById(R.id.textViewType);
         final TextView PractCoeff = (TextView)view.findViewById(R.id.textViewCoeff);
-        final TextView PractTel = (TextView)view.findViewById(R.id.textViewTel);
+        final TextView PractTel = (TextView)view.findViewById(textViewTel);
         final Button buttonPractOk = (Button)view.findViewById(R.id.buttonPractOk);
-        TabHost mTabHost = (TabHost)view.findViewById(R.id.TabHostPract);
-        mTabHost.setup();
-
-        TabHost.TabSpec mSpec = mTabHost.newTabSpec("First Tab");
-        mSpec.setContent(R.id.tab1);
-        mSpec.setIndicator("Voir");
-        mTabHost.addTab(mSpec);
-        //Lets add the second Tab
-        mSpec = mTabHost.newTabSpec("Second Tab");
-        mSpec.setContent(R.id.tab2);
-        mSpec.setIndicator("Ajouter");
-        mTabHost.addTab(mSpec);
 
 
         autoCompleteTextPract = (AutoCompleteTextView) view.findViewById(R.id.autoCompleteTextPract);
@@ -105,6 +98,26 @@ public class PracticiensFragment extends Fragment{
              }
          }
         );
+
+        final Button buttonAppel = (Button)view.findViewById(R.id.buttonAppel);
+        buttonAppel.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view)
+            {
+                if(PractTel.getText().toString().equals(""))
+                {
+                    Toast.makeText(getActivity().getBaseContext(), "Veuillez selectionner un praticien.", Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    Intent callIntent = new Intent(Intent.ACTION_CALL);
+                    callIntent.setData(Uri.parse("tel:" + PractTel.getText().toString()));
+                    startActivity(callIntent);
+                }
+            }
+
+        });
 
 
         //returning our layout file

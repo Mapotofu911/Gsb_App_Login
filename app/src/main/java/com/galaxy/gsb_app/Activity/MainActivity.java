@@ -9,11 +9,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.galaxy.gsb_app.Class.Visiteurs;
 import com.galaxy.gsb_app.Fragments.CompteRendusFragment;
+import com.galaxy.gsb_app.Fragments.ModifierCompteRendusFragment;
 import com.galaxy.gsb_app.R;
 
 import org.json.JSONArray;
@@ -30,6 +34,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Objects;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -41,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText etEmail;
     private EditText etPassword;
     private JSONArray MyVisiteur;
+    private JSONArray role;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
         // Get Reference to variables
         etEmail = (EditText) findViewById(R.id.email);
         etPassword = (EditText) findViewById(R.id.password);
-
     }
 
     // Triggers when LOGIN Button clicked
@@ -163,6 +168,7 @@ public class MainActivity extends AppCompatActivity {
 
                             String resultLog = jsonObj.getString("result");
                             MyVisiteur = jsonObj.getJSONArray("Visiteur");
+                            role = jsonObj.getJSONArray("roles");
 
 
                             return(resultLog.toString());
@@ -203,6 +209,19 @@ public class MainActivity extends AppCompatActivity {
 
             pdLoading.dismiss();
 
+            String roleAdmin = "[{\"roles\":\"a:0:{ROLE_ADMIN}\"}]";
+            Log.e("role", String.valueOf(role));
+            Log.e("role2", roleAdmin);
+
+            if(roleAdmin.equals(String.valueOf(role)))
+            {
+                Toast.makeText(MainActivity.this, "Welcome Admin", Toast.LENGTH_LONG).show();
+            }
+            else
+            {
+                Toast.makeText(MainActivity.this, "Welcome User", Toast.LENGTH_LONG).show();
+            }
+
             if(result.equalsIgnoreCase("true"))
             {
                 /* Here launching another activity when login successful. If you persist login state
@@ -212,6 +231,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this,NavigationDrawer.class);
                 try {
                     intent.putExtra("visiteurId", String.valueOf(MyVisiteur.getJSONObject(0).getInt("id")));
+                    intent.putExtra("visiteurNom", String.valueOf(MyVisiteur.getJSONObject(0).get("username")));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
