@@ -42,7 +42,7 @@ public class PracticiensFragment extends Fragment{
     // API urls
     // Url to get all Practiciens
 
-    private String url = "http://10.0.2.2/apigsb/getPracticiens.php";
+    private String url = "http://rulliereolivier.fr/apigsb/getPracticiens.php";
 
     @Nullable
     @Override

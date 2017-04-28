@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText etEmail;
     private EditText etPassword;
     private JSONArray MyVisiteur;
-    private JSONArray role;
+    //private JSONArray role;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
             try
             {
                 // Enter URL address where your php file resides
-                url = new URL("http://10.0.2.2/apigsb/login.php");
+                url = new URL("http://rulliereolivier.fr/apigsb/login.php");
 
             }
             catch (MalformedURLException e)
@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
 
                             String resultLog = jsonObj.getString("result");
                             MyVisiteur = jsonObj.getJSONArray("Visiteur");
-                            role = jsonObj.getJSONArray("roles");
+                            //role = jsonObj.getJSONArray("roles");
 
 
                             return(resultLog.toString());
@@ -209,7 +209,7 @@ public class MainActivity extends AppCompatActivity {
 
             pdLoading.dismiss();
 
-            String roleAdmin = "[{\"roles\":\"a:0:{ROLE_ADMIN}\"}]";
+            /*String roleAdmin = "[{\"roles\":\"a:0:{ROLE_ADMIN}\"}]";
             Log.e("role", String.valueOf(role));
             Log.e("role2", roleAdmin);
 
@@ -220,7 +220,7 @@ public class MainActivity extends AppCompatActivity {
             else
             {
                 Toast.makeText(MainActivity.this, "Welcome User", Toast.LENGTH_LONG).show();
-            }
+            }*/
 
             if(result.equalsIgnoreCase("true"))
             {
@@ -245,7 +245,7 @@ public class MainActivity extends AppCompatActivity {
 
             } else if (result.equalsIgnoreCase("exception") || result.equalsIgnoreCase("unsuccessful")) {
 
-                Toast.makeText(MainActivity.this, "OOPs! Something went wrong. Connection Problem.", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "OoPs! Something went wrong. Connection Problem.", Toast.LENGTH_LONG).show();
 
             }
         }

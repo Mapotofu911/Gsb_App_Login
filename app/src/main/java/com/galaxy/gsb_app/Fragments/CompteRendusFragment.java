@@ -160,7 +160,7 @@ public class CompteRendusFragment extends Fragment {
 
             try{
 
-                URL url = new URL("http://10.0.2.2/apigsb/getCompteRendus.php");
+                URL url = new URL("http://rulliereolivier.fr/apigsb/getCompteRendus.php");
 
                 JSONObject postDataParams = new JSONObject();
 
@@ -245,7 +245,7 @@ public class CompteRendusFragment extends Fragment {
 
 
                             c.setId(cptrendusObj.getInt("id"));
-                            c.setDate_rapport(cptrendusObj.getString("dateRapport"));
+                            c.setDate_rapport(cptrendusObj.getString("date"));
                             c.setMotif(cptrendusObj.getString("motif"));
                             c.setBilan(cptrendusObj.getString("bilan"));
 
@@ -366,7 +366,7 @@ public class CompteRendusFragment extends Fragment {
                     hm.put("cptId", String.valueOf(editTextDelete));
                     hm.put("visiteurId", String.valueOf(idVisiteur));
 
-                    rep2 = rh.sendPostRequest("http://10.0.2.2/apigsb/deleteCompteRendu.php", hm);
+                    rep2 = rh.sendPostRequest("http://rulliereolivier.fr/apigsb/deleteCompteRendu.php", hm);
                     Log.e("Delete rep", rep2);
                     return rep2;
                 }

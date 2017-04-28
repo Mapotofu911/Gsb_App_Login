@@ -39,7 +39,7 @@ public class MedicamentsFragment extends Fragment {
     private ArrayList<Medicaments> medicamentsList;
     // API urls
     // Url to get all Practiciens
-    private String url = "http://10.0.2.2/apigsb/getMedicaments.php";
+    private String url = "http://rulliereolivier.fr/apigsb/getMedicaments.php";
 
     @Nullable
     @Override

@@ -162,7 +162,7 @@ public class FinaliserCompteRendu extends Fragment {
 
                 RequestHandler rh = new RequestHandler();
 
-                String repId = rh.sendPostRequest("http://10.0.2.2/apigsb/updateCompteRendu.php", hashMap);
+                String repId = rh.sendPostRequest("http://rulliereolivier.fr/apigsb/updateCompteRendu.php", hashMap);
                 Log.e("repId", repId);
 
                 String rep ="";
@@ -172,7 +172,7 @@ public class FinaliserCompteRendu extends Fragment {
                     HashMap<String, String> hm = new HashMap<>();
                     hm.put("cptId", String.valueOf(crs.getId()));
                     hm.put("visiteurId", String.valueOf(crs.getVisiteur_rapport_id()));
-                    rep = rh.sendPostRequest("http://10.0.2.2/apigsb/deleteCompteRenduMed.php", hm);
+                    rep = rh.sendPostRequest("http://rulliereolivier.fr/apigsb/deleteCompteRenduMed.php", hm);
                     Log.e("s1", rep);
                 }
 
@@ -188,7 +188,7 @@ public class FinaliserCompteRendu extends Fragment {
                     hm.put("quantity",String.valueOf(crs.getMedicamentsOfferts_rapport().get(i).getQuantity()));
                     hm.put("cptId", String.valueOf(crs.getId()));
 
-                    rep = rh.sendPostRequest("http://10.0.2.2/apigsb/updateCompteRenduMedicamentsOfferts.php", hm);
+                    rep = rh.sendPostRequest("http://rulliereolivier.fr/apigsb/updateCompteRenduMedicamentsOfferts.php", hm);
                     Log.e("s2", rep);
                 }
 
@@ -198,7 +198,7 @@ public class FinaliserCompteRendu extends Fragment {
                     hm.put("medId",String.valueOf(crs.getMedicamentsPresente_rapport().get(i).getId()));
                     hm.put("cptId", String.valueOf(crs.getId()));
 
-                    rep = rh.sendPostRequest("http://10.0.2.2/apigsb/updateCompteRenduMedicamentsPresente.php", hm);
+                    rep = rh.sendPostRequest("http://rulliereolivier.fr/apigsb/updateCompteRenduMedicamentsPresente.php", hm);
                     Log.e("s3", rep);
                 }
 

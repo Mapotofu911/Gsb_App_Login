@@ -163,7 +163,7 @@ public class VisiteursFragment extends Fragment {
         protected Void doInBackground(Void... arg0) {
 
             HttpHandler sh = new HttpHandler();
-            String jsonStr = sh.makeServiceCall("http://10.0.2.2/apigsb/getRegion.php");
+            String jsonStr = sh.makeServiceCall("http://rulliereolivier.fr/apigsb/getRegion.php");
 
             Log.e("Response: ", "> " + jsonStr);
 
@@ -232,7 +232,7 @@ public class VisiteursFragment extends Fragment {
 
             try{
 
-                URL url = new URL("http://10.0.2.2/apigsb/getVisiteurs.php");
+                URL url = new URL("http://rulliereolivier.fr/apigsb/getVisiteurs.php");
 
                 JSONObject postDataParams = new JSONObject();
 

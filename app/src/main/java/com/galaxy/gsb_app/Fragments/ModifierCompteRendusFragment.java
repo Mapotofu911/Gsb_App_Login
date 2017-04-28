@@ -295,7 +295,7 @@ public class ModifierCompteRendusFragment extends Fragment{
         protected Void doInBackground(Void... arg0) {
 
             HttpHandler sh = new HttpHandler();
-            String jsonStr = sh.makeServiceCall("http://10.0.2.2/apigsb/getPracticiens.php");
+            String jsonStr = sh.makeServiceCall("http://rulliereolivier.fr/apigsb/getPracticiens.php");
 
             Log.e("Response: ", "> " + jsonStr);
 
@@ -371,7 +371,7 @@ public class ModifierCompteRendusFragment extends Fragment{
         protected Void doInBackground(Void... arg0) {
 
             HttpHandler sh = new HttpHandler();
-            String jsonStr = sh.makeServiceCall("http://10.0.2.2/apigsb/getMedicaments.php");
+            String jsonStr = sh.makeServiceCall("http://rulliereolivier.fr/apigsb/getMedicaments.php");
 
             Log.e("Response: ", "> " + jsonStr);
 
@@ -455,7 +455,7 @@ public class ModifierCompteRendusFragment extends Fragment{
 
             try {
 
-                URL url = new URL("http://10.0.2.2/apigsb/getCompteRendusById.php");
+                URL url = new URL("http://rulliereolivier.fr/apigsb/getCompteRendusById.php");
 
                 JSONObject postDataParams = new JSONObject();
 
@@ -533,14 +533,14 @@ public class ModifierCompteRendusFragment extends Fragment{
                             JSONObject cptrendusObj = cptrendus.getJSONObject(0);
 
                             crs.setId(cptrendusObj.getInt("id"));
-                            crs.setDate_rapport(cptrendusObj.getString("dateRapport"));
+                            crs.setDate_rapport(cptrendusObj.getString("date"));
                             crs.setMotif(cptrendusObj.getString("motif"));
                             crs.setBilan(cptrendusObj.getString("bilan"));
                             crs.setPracticien_nom(cptrendusObj.getString("Nom"));
                             crs.setVisiteur_rapport_id(cptrendusObj.getInt("visiteurs_id"));
 
                             Log.e("xD", String.valueOf(crs.getPracticien_nom()));
-                            autoCompleteTextView.setText(crs.getPracticien_nom());
+                            autoCompleteTextView.setText(cptrendusObj.getString("Nom"));
 
                             if (cptrendusObj.getInt("SaisieDefinitive") == 0) {
                                 CompteRenduSingleton.getInstance().setSaisieDefinitive(false);
@@ -612,7 +612,7 @@ public class ModifierCompteRendusFragment extends Fragment{
 
             try {
 
-                URL url = new URL("http://10.0.2.2/apigsb/getMedPresCompteRendu.php");
+                URL url = new URL("http://rulliereolivier.fr/apigsb/getMedPresCompteRendu.php");
 
                 JSONObject postDataParams = new JSONObject();
 
@@ -717,7 +717,7 @@ public class ModifierCompteRendusFragment extends Fragment{
 
             try {
 
-                URL url = new URL("http://10.0.2.2/apigsb/getMedOffCompteRendu.php");
+                URL url = new URL("http://rulliereolivier.fr/apigsb/getMedOffCompteRendu.php");
 
                 JSONObject postDataParams = new JSONObject();
 

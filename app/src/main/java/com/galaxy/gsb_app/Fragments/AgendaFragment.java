@@ -113,7 +113,7 @@ public class AgendaFragment extends Fragment {
                         newsSingleton.setContent(newsList.get(i).getContent());
                         newsSingleton.setDate(newsList.get(i).getDate());
                         newsSingleton.setPlaceNumber(newsList.get(i).getPlaceNumber());
-                        newsSingleton.setAuthor(newsList.get(i).getAuthor());
+                        newsSingleton.setId(newsList.get(i).getUser_id());
                         newsSingleton.setTitle(newsList.get(i).getTitle());
                         newsSingleton.setId(newsList.get(i).getId());
                     }
@@ -141,7 +141,7 @@ public class AgendaFragment extends Fragment {
                      newsSingleton.setContent("");
                      newsSingleton.setDate(fDate);
                      newsSingleton.setPlaceNumber(NULL);
-                     newsSingleton.setAuthor(args2.getString("username"));
+                     newsSingleton.setUser_id(Integer.parseInt(args2.getString("visiteurId")));
                      newsSingleton.setTitle("");
                      newsSingleton.setId(-1);
 
@@ -184,11 +184,11 @@ public class AgendaFragment extends Fragment {
             try {
                 Bundle args2 = getArguments();
 
-                URL url = new URL("http://10.0.2.2/apigsb/getEvenements.php");
+                URL url = new URL("http://rulliereolivier.fr/apigsb/getEvenements.php");
 
                 HashMap<String,String> paramsNews = new HashMap<>();
                 paramsNews.put("date", String.valueOf(selectedDate));
-                paramsNews.put("username", args2.getString("username"));
+                paramsNews.put("visiteurId", args2.getString("visiteurId"));
 
                 JSONObject postDataParams = new JSONObject(paramsNews);
 
@@ -269,7 +269,7 @@ public class AgendaFragment extends Fragment {
 
                             n.setId(newsJsObjct.getInt("id"));
                             n.setTitle(newsJsObjct.getString("title"));
-                            n.setAuthor(newsJsObjct.getString("author"));
+                            n.setUser_id(newsJsObjct.getInt("user_id"));
                             n.setContent(newsJsObjct.getString("content"));
                             n.setDate(newsJsObjct.getString("date"));
                             n.setPlaceNumber(newsJsObjct.getInt("PlaceNumber"));

@@ -9,15 +9,15 @@ public class News {
     private int id;
     private String title;
     private String content;
-    private String author;
+    private int user_id;
     private int PlaceNumber;
     private String date;
 
-    public News(int id, String title, String content, String author, int placeNumber, String date) {
+    public News(int id, String title, String content, int user_id, int placeNumber, String date) {
         this.id = id;
         this.title = title;
         this.content = content;
-        this.author = author;
+        this.user_id = user_id;
         this.PlaceNumber = placeNumber;
         this.date = date;
     }
@@ -50,12 +50,12 @@ public class News {
         this.content = content;
     }
 
-    public String getAuthor() {
-        return author;
+    public int getUser_id() {
+        return user_id;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 
     public int getPlaceNumber() {

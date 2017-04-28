@@ -77,7 +77,8 @@ public class ModifierEvenementsFragment extends Fragment{
 
                 AgendaFragment myFrag = new AgendaFragment();
                 Bundle args = new Bundle();
-                args.putString("username", String.valueOf(newsSingleton.getAuthor()));
+                args.putString("visiteurId", String.valueOf(newsSingleton.getUser_id()));
+                Log.e("visiteurId", String.valueOf(newsSingleton.getUser_id()));
                 myFrag.setArguments(args);
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, myFrag).addToBackStack(null).commit();
             }
@@ -91,7 +92,7 @@ public class ModifierEvenementsFragment extends Fragment{
 
                 AgendaFragment myFrag = new AgendaFragment();
                 Bundle args = new Bundle();
-                args.putString("username", String.valueOf(newsSingleton.getAuthor()));
+                args.putString("visiteurId", String.valueOf(newsSingleton.getUser_id()));
                 myFrag.setArguments(args);
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, myFrag).addToBackStack(null).commit();
             }
@@ -118,7 +119,7 @@ public class ModifierEvenementsFragment extends Fragment{
 
                 hashMap.put("date", newsSingleton.getDate());
                 hashMap.put("content", newsSingleton.getContent());
-                hashMap.put("author", newsSingleton.getAuthor());
+                hashMap.put("user_id", String.valueOf(newsSingleton.getUser_id()));
                 hashMap.put("PlaceNumber", String.valueOf(newsSingleton.getPlaceNumber()));
                 hashMap.put("titre", newsSingleton.getTitle());
                 hashMap.put("id", String.valueOf(newsSingleton.getId()));
@@ -127,7 +128,7 @@ public class ModifierEvenementsFragment extends Fragment{
 
                 RequestHandler rh = new RequestHandler();
 
-                String rep = rh.sendPostRequest("http://10.0.2.2/apigsb/updateEvenement.php", hashMap);
+                String rep = rh.sendPostRequest("http://rulliereolivier.fr/apigsb/updateEvenement.php", hashMap);
                 Log.e("repId", rep);
 
                 return rep;
@@ -159,7 +160,7 @@ public class ModifierEvenementsFragment extends Fragment{
 
                 RequestHandler rh = new RequestHandler();
 
-                String rep = rh.sendPostRequest("http://10.0.2.2/apigsb/deleteEvenements.php", hashMap);
+                String rep = rh.sendPostRequest("http://rulliereolivier.fr/apigsb/deleteEvenements.php", hashMap);
                 Log.e("repId", rep);
 
                 return rep;

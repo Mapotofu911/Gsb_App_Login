@@ -9,7 +9,7 @@ public class NewsSingleton {
     private int id;
     private String title;
     private String content;
-    private String author;
+    private int user_id;
     private int PlaceNumber;
     private String date;
 
@@ -58,12 +58,12 @@ public class NewsSingleton {
         this.content = content;
     }
 
-    public String getAuthor() {
-        return author;
+    public int getUser_id() {
+        return user_id;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 
     public int getPlaceNumber() {

@@ -1,6 +1,5 @@
 package com.galaxy.gsb_app.Activity;
 
-import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -10,7 +9,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -18,8 +16,6 @@ import com.galaxy.gsb_app.Fragments.AgendaFragment;
 import com.galaxy.gsb_app.Fragments.CompteRendusFragment;
 import com.galaxy.gsb_app.Fragments.MedicamentsFragment;
 import com.galaxy.gsb_app.Fragments.PracticiensFragment;
-import com.galaxy.gsb_app.Fragments.TicketsDIncidentsFragment;
-import com.galaxy.gsb_app.Fragments.VehiculeFragment;
 import com.galaxy.gsb_app.Fragments.VisiteursFragment;
 import com.galaxy.gsb_app.R;
 
@@ -100,9 +96,9 @@ public class NavigationDrawer extends AppCompatActivity
                 /*fragment = new AgendaFragment();
                 tag = "AgendaFragment";*/
                 AgendaFragment myFrag2 = new AgendaFragment();
-                String s2 = getIntent().getStringExtra("visiteurNom");
+                String s2 = getIntent().getStringExtra("visiteurId");
                 Bundle bundle2 = new Bundle();
-                bundle2.putString("username", s2);
+                bundle2.putString("visiteurId", s2);
                 myFrag2.setArguments(bundle2);
                 FragmentTransaction ft2 = getSupportFragmentManager().beginTransaction();
                 tag = "AgendaFragment";
