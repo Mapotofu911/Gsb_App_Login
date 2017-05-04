@@ -3,21 +3,17 @@ package com.galaxy.gsb_app.Activity;
 import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
+import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.galaxy.gsb_app.Class.Visiteurs;
-import com.galaxy.gsb_app.Fragments.CompteRendusFragment;
-import com.galaxy.gsb_app.Fragments.ModifierCompteRendusFragment;
 import com.galaxy.gsb_app.R;
 
 import org.json.JSONArray;
@@ -34,7 +30,6 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Objects;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -46,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
     private EditText etEmail;
     private EditText etPassword;
     private JSONArray MyVisiteur;
+    private CheckBox checkBoxRememberMe;
+    public static String filename = "Valustoringfile";
+    SharedPreferences SP;
     //private JSONArray role;
 
     @Override
@@ -56,6 +54,25 @@ public class MainActivity extends AppCompatActivity {
         // Get Reference to variables
         etEmail = (EditText) findViewById(R.id.email);
         etPassword = (EditText) findViewById(R.id.password);
+        checkBoxRememberMe = (CheckBox) findViewById(R.id.checkBoxRememberMe);
+
+        SP = getSharedPreferences(filename, 0);
+
+        String getname = SP.getString("key1","");
+        String getpass = SP.getString("key2","");
+        Boolean getRememberMe = SP.getBoolean("key3", false);
+
+        if (getRememberMe)
+        {
+            checkBoxRememberMe.setChecked(true);
+        }
+
+        etEmail.setText(getname);
+        etPassword.setText(getpass);
+
+
+        //Here we will validate saved preferences
+
     }
 
     // Triggers when LOGIN Button clicked
@@ -65,9 +82,25 @@ public class MainActivity extends AppCompatActivity {
         final String email = etEmail.getText().toString();
         final String password = etPassword.getText().toString();
 
+
+        if(checkBoxRememberMe.isChecked())
+        {
+            SharedPreferences.Editor editit = SP.edit();
+            editit.putString("key1", email);
+            editit.putString("key2",password);
+            editit.putBoolean("key3", true);
+            editit.apply();
+        }
+        else
+        {
+            SharedPreferences.Editor editit = SP.edit();
+            editit.clear();
+            editit.apply();
+        }
+
+
         // Initialize  AsyncLogin() class with email and password
         new AsyncLogin().execute(email,password);
-
     }
 
     private class AsyncLogin extends AsyncTask<String, String, String>
@@ -251,27 +284,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-
-    //Pass user data to fragment
-    /*public Visiteurs getUser() throws JSONException {
-
-        Visiteurs User = new Visiteurs();
-
-        User.setAdresse(MyVisiteur.getJSONObject(0).getString("Adresse"));
-        User.setNom(MyVisiteur.getJSONObject(0).getString("Nom"));
-        User.setId(MyVisiteur.getJSONObject(0).getInt("id"));
-        User.setPrenom(MyVisiteur.getJSONObject(0).getString("Prenom"));
-        User.setCodePostal(MyVisiteur.getJSONObject(0).getString("CodePostal"));
-        User.setLaboratoire(MyVisiteur.getJSONObject(0).getString("Laboratoire"));
-        User.setRegion(MyVisiteur.getJSONObject(0).getString("Region_id"));
-        User.setMail(MyVisiteur.getJSONObject(0).getString("Mail"));
-        User.setTel(MyVisiteur.getJSONObject(0).getString("Tel"));
-        User.setSecteur(MyVisiteur.getJSONObject(0).getString("Secteur"));
-
-        Log.e("Response: ", "> " + User);
-
-        return User;
-    }*/
 
     @Override
     public void onBackPressed() {

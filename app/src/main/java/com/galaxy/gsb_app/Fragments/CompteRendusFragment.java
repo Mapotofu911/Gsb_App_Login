@@ -229,69 +229,59 @@ public class CompteRendusFragment extends Fragment {
 
             compteRendusList = new ArrayList<>();
 
-            if (result != null) {
-                try {
-                    JSONObject jsonObj = new JSONObject(result);
+            if (result != null) try {
 
-                    if (jsonObj != null) {
+                JSONObject jsonObj = new JSONObject(result);
 
-                        JSONArray cptrendus = jsonObj.getJSONArray("compte_rendus");
+                if (jsonObj != null) {
 
-                        for (int i = 0; i < cptrendus.length(); i++) {
+                    JSONArray cptrendus = jsonObj.getJSONArray("compte_rendus");
 
-                            JSONObject cptrendusObj = cptrendus.getJSONObject(i);
+                    for (int i = 0; i < cptrendus.length(); i++) {
 
-                            CompteRendus c = new CompteRendus();
+                        JSONObject cptrendusObj = cptrendus.getJSONObject(i);
+
+                        CompteRendus c = new CompteRendus();
 
 
-                            c.setId(cptrendusObj.getInt("id"));
-                            c.setDate_rapport(cptrendusObj.getString("date"));
-                            c.setMotif(cptrendusObj.getString("motif"));
-                            c.setBilan(cptrendusObj.getString("bilan"));
+                        c.setId(cptrendusObj.getInt("id"));
+                        c.setDate_rapport(cptrendusObj.getString("date"));
+                        c.setMotif(cptrendusObj.getString("motif"));
+                        c.setBilan(cptrendusObj.getString("bilan"));
 
-                            if (cptrendusObj.getInt("SaisieDefinitive") == 0)
-                            {
-                                c.setSaisieDefinitive(false);
-                            }
-                            else
-                            {
-                                c.setSaisieDefinitive(true);
-                            }
-
-                            if (cptrendusObj.getInt("documentation") == 0)
-                            {
-                                c.setDocumentation(false);
-                            }
-                            else
-                            {
-                                c.setDocumentation(true);
-                            }
-
-                            if (cptrendusObj.getInt("remplacant") == 0)
-                            {
-                                c.setRemplacant(false);
-                            }
-                            else
-                            {
-                                c.setRemplacant(true);
-                            }
-
-                            c.setPracticien_nom(cptrendusObj.getString("NomPract"));
-                            c.setPract_id(cptrendusObj.getInt("practiciens_id"));
-                            c.setVisiteur_rapport_id(cptrendusObj.getInt("visiteurs_id"));
-
-                            compteRendusList.add(c);
-
+                        if (cptrendusObj.getInt("SaisieDefinitive") == 0) {
+                            c.setSaisieDefinitive(false);
+                        } else {
+                            c.setSaisieDefinitive(true);
                         }
 
-                        afficherListeCompteRendus();
+                        if (cptrendusObj.getInt("documentation") == 0) {
+                            c.setDocumentation(false);
+                        } else {
+                            c.setDocumentation(true);
+                        }
+
+                        if (cptrendusObj.getInt("remplacant") == 0) {
+                            c.setRemplacant(false);
+                        } else {
+                            c.setRemplacant(true);
+                        }
+
+                        c.setPracticien_nom(cptrendusObj.getString("NomPract"));
+                        c.setPract_id(cptrendusObj.getInt("practiciens_id"));
+                        c.setVisiteur_rapport_id(cptrendusObj.getInt("visiteurs_id"));
+
+                        compteRendusList.add(c);
+
                     }
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    afficherListeCompteRendus();
                 }
 
-            } else {
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            else {
                 Log.e("JSON Data", "Didn't receive any data from server!");
             }
         }
